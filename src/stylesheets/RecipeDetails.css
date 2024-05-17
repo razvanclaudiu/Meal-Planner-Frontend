@@ -1,0 +1,137 @@
+.recipe-details-container {
+    height: 740px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    left: 140px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.recipe-container-2 {
+    height: 740px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    left: 498px;
+    right: 270px;
+    bottom: 30px;
+    border: 1px solid #e0e0e0;
+    padding: 20px 30px 20px 30px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+
+.recipe-container-3 {
+    height: 740px;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    right: 30px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+
+.recipe-container-3 p {
+    margin: 0;
+}
+
+.recipe-container-3 span {
+    display: block; /* Each ingredient on one line */
+    margin-bottom: 5px; /* Add margin between each ingredient */
+}
+
+
+.recipe-details-container img {
+    width: 300px;
+    height: 300px;
+    border-radius: 5px;
+    align-self: center; /* Center the image horizontally */
+}
+
+.recipe-details-edit-button {
+    background-color: #ffd53b;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    align-self: center;
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+}
+
+.recipe-details-edit-button:hover {
+    background-color: #ffcc00;
+}
+
+.recipe-details-delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    align-self: center;
+    position: absolute;
+    bottom: 40px;
+    right: 80px;
+}
+
+.recipe-details-delete-button:hover {
+    background-color: #c82333;
+}
+.recipe-title {
+    font-size: 28px;
+    margin-bottom: -20px;
+    margin-top: -10px;
+}
+
+.recipe-info {
+    flex: 1; /* To occupy remaining space */
+    margin-top: 30px;
+}
+
+.recipe-info p {
+    margin-bottom: 8px;
+}
+
+.recipe-info strong {
+    font-weight: bold;
+}
+
+.recipe-info a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.recipe-info a:hover {
+    text-decoration: underline;
+}
+
+.recipe-info a:visited {
+    color: #007bff;
+}
+
+.recipe-description {
+    clear: both; /* Ensure the description is below the floated image */
+}

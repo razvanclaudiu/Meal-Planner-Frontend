@@ -1,0 +1,162 @@
+/* App.css */
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fff; /* Match white background */
+}
+
+.top-bar {
+  background-color: rgb(44, 42, 41);
+  text-align: center;
+  justify-content: center;
+  border-bottom: 3px solid #ffd53b; /* Add a border at the bottom */
+  position: relative;
+}
+
+.top-bar .app-title {
+  position: absolute;
+  color: #ffd53b;
+  left: 60px;
+  top: -18px;
+  font-size: 40px; /* Adjust font size */
+  font-family: 'League Spartan', sans-serif; /* League Spartan font */
+  //text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+}
+
+
+.top-bar .log-in-button {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  font-size: 16px; /* Decreased font size */
+  border-radius: 20px; /* Added border radius for rounded corners */
+  padding: 10px 20px; /* Adjusted padding */
+  background: #ffd53b;
+  border: none;
+}
+
+.top-bar .log-in-button:hover {
+  background: #ffcc00; /* Change background color on hover */
+  cursor: pointer;
+}
+
+
+.top-bar .create-button {
+  position: absolute;
+  right: 80px;
+  bottom: 10px;
+  font-size: 16px; /* Decreased font size */
+  border-radius: 20px; /* Added border radius for rounded corners */
+  padding: 10px 20px; /* Adjusted padding */
+  background: #ffd53b;
+  border: none;
+}
+
+.top-bar .create-button:hover {
+  background: #ffcc00; /* Change background color on hover */
+  cursor: pointer;
+}
+
+
+
+
+/* App.css */
+
+.profile-button {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 20px;
+  bottom: 6px;
+  background: transparent;
+  border: 2px solid transparent; /* Yellow border */
+  border-radius: 50%; /* Circular button */
+  transition: border-color 0.3s; /* Added transition for border color change */
+}
+
+.profile-button:hover {
+  border-color: #c8a200; /* Darken the border slightly on hover */
+}
+
+.profile-button img {
+  width: 100%; /* Make the image occupy the entire button width */
+  height: 100%; /* Make the image occupy the entire button height */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the entire image is covered */
+  object-position: center; /* Center the image */
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.left-sidebar {
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  color: #333; /* Changed text color */
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align buttons vertically */
+  border-right: 3px solid #ffd53b; /* Add a border on the right */
+}
+
+.sidebar-button {
+  background-color: rgb(255, 255, 255);
+  color: #333; /* Text color */
+  border: none; /* Remove border */
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 80px;
+  cursor: pointer;
+  border-radius: 5px;
+  outline: none;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+}
+
+.sidebar-button:hover {
+  background-color: #ffd53b; /* Darker yellow on hover */
+}
+
+.App-header {
+  background-color: #f5f5f5;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  align-items: center; /* Center content vertically */
+  flex-direction: column; /* Center content vertically */
+}
+
+.search-bar {
+  width: 25%; /* Set the width to a fixed value */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
+.chef-hat{
+  width: 40px;
+  height: 40px;
+  margin-top: 20px;
+  display: inline;
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+}
+
+.App-link {
+  color: #61dafb;
+}

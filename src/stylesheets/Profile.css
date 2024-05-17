@@ -1,0 +1,176 @@
+.profile {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+
+}
+
+.profile-header {
+    height: 740px;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    right: 30px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.profile-header button {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    left: 20px;
+    background-color: #ffd53b;
+    border: none;
+    color: #000000;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.profile-header img {
+    width: 150px; /* Fixed width */
+    height: 150px; /* Fixed height */
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid #ffd53b;
+}
+
+.profile h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.profile p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.separator {
+    width: 100%;
+    border-top: 1px solid #e0e0e0;
+    margin: 10px 0;
+}
+
+.log-out-button {
+    background-color: #ffd53b;
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.log-out-button:hover {
+    background-color: #ffcc00;
+
+}
+
+.profile-recipes {
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Items will be arranged vertically */
+    justify-content: center; /* Center the recipes horizontally */
+    overflow-y: auto; /* Enable vertical scrolling */
+    gap: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    position: absolute;
+    top: 40px;
+    left: 140px;
+    right: 270px;
+    bottom: 450px;
+    height: 340px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.recipe-list-profile {
+    flex: 1; /* Let the recipe list fill the available space */
+    overflow-y: auto; /* Add scrolling if necessary */
+    padding: 0; /* Reset padding */
+}
+
+
+.profile-reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #e0e0e0;
+    position: absolute;
+    top: 440px;
+    left: 140px;
+    right: 270px;
+    height: 340px;
+    padding: 20px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.recipes {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.recipe-item-profile {
+    text-align: center;
+    cursor: pointer;
+    background: white;
+    width: 200px;
+    border: none;
+}
+
+.recipe-item-profile:hover {
+    transform: translateY(-5px); /* Move the item up slightly on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.recipe-item-profile:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: calc(100% ); /* Adjust the width */
+    height: calc(97% ); /* Adjust the height */
+    border-bottom: 7px solid #ffd53b; /* Yellow outline on bottom */
+    border-right: 7px solid #ffd53b; /* Yellow outline on right */
+    border-radius: 10px;
+}
+
+.recipe-item-profile img {
+    width: 175px; /* Make the image fill the container */
+    height: 175px; /* Set a fixed height */
+    border-radius: 10px 10px 10px 10px; /* Round the top corners */
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #ffcc00;
+    transition: width 0.5s ease;
+}

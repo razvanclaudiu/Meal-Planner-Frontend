@@ -1,0 +1,24 @@
+.star {
+    font-size: 48px;
+    color: #e0e0e0; /* Default color for empty stars */
+    position: relative;
+}
+
+.filled {
+    color: #ffd700; /* Gold color for filled stars */
+}
+
+.half-filled {
+    color: #e0e0e0; /* Gold color for the visible half of the star */
+    position: relative;
+    overflow: hidden; /* Hide the right half */
+}
+
+.half-filled::before {
+    content: '★';
+    color:#ffd700; /* Grey color for the empty part of the star */
+    position: absolute;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+}
