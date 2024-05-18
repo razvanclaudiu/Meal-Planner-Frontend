@@ -1,17 +1,13 @@
 import React from 'react';
 import image_not_found from '../images/image_not_found.png';
+import Recipe from "../interface/RecipeInterface";
 
-interface Recipe {
-    id: number;
-    title: string;
-    image: string;
-}
 
 interface Props {
     recipe: Recipe;
 }
 
-const RecipeItem: React.FC<Props> = ({ recipe }) => {
+const RecipeComponent: React.FC<Props> = ({ recipe }) => {
     const imageUrl = `http://localhost:8080/api/images/recipe/${recipe.image}`;
 
     return (
@@ -28,4 +24,4 @@ const RecipeItem: React.FC<Props> = ({ recipe }) => {
     );
 }
 
-export default RecipeItem;
+export default RecipeComponent;

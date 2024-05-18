@@ -65,8 +65,23 @@
     align-self: center; /* Center the image horizontally */
 }
 
+.recipe-details-review-page-button {
+    background-color: #f69512;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: -10px;
+    align-self: center;
+}
+
+.recipe-details-review-page-button:hover {
+    background-color: #fc9008;
+}
+
+
 .recipe-details-edit-button {
-    background-color: #ffd53b;
+    background-color: #f69512;
     color: black;
     border: none;
     border-radius: 5px;
@@ -75,12 +90,12 @@
     margin-top: 20px;
     align-self: center;
     position: absolute;
-    bottom: 40px;
+    bottom: 25px;
     left: 80px;
 }
 
 .recipe-details-edit-button:hover {
-    background-color: #ffcc00;
+    background-color: #fc9008;
 }
 
 .recipe-details-delete-button {
@@ -93,13 +108,32 @@
     margin-top: 20px;
     align-self: center;
     position: absolute;
-    bottom: 40px;
+    bottom: 25px;
     right: 80px;
 }
 
 .recipe-details-delete-button:hover {
     background-color: #c82333;
 }
+
+.recipe-details-review-button {
+    background-color: #f69512;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    align-self: center;
+    position: absolute;
+    bottom: 25px;
+    right: 100px;
+    left: 100px;
+}
+
+.recipe-details-review-button:hover {
+    background-color: #fc9008;
+}
+
 .recipe-title {
     font-size: 28px;
     margin-bottom: -20px;

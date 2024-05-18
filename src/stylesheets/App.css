@@ -11,13 +11,13 @@
   background-color: rgb(44, 42, 41);
   text-align: center;
   justify-content: center;
-  border-bottom: 3px solid #ffd53b; /* Add a border at the bottom */
+  border-bottom: 3px solid #f69512; /* Add a border at the bottom */
   position: relative;
 }
 
 .top-bar .app-title {
   position: absolute;
-  color: #ffd53b;
+  color: #f69512;
   left: 60px;
   top: -18px;
   font-size: 40px; /* Adjust font size */
@@ -33,12 +33,12 @@
   font-size: 16px; /* Decreased font size */
   border-radius: 20px; /* Added border radius for rounded corners */
   padding: 10px 20px; /* Adjusted padding */
-  background: #ffd53b;
+  background: #f69512;
   border: none;
 }
 
 .top-bar .log-in-button:hover {
-  background: #ffcc00; /* Change background color on hover */
+  background: #fc9008; /* Change background color on hover */
   cursor: pointer;
 }
 
@@ -50,12 +50,12 @@
   font-size: 16px; /* Decreased font size */
   border-radius: 20px; /* Added border radius for rounded corners */
   padding: 10px 20px; /* Adjusted padding */
-  background: #ffd53b;
+  background: #f69512;
   border: none;
 }
 
 .top-bar .create-button:hover {
-  background: #ffcc00; /* Change background color on hover */
+  background: #fc9008; /* Change background color on hover */
   cursor: pointer;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .profile-button:hover {
-  border-color: #c8a200; /* Darken the border slightly on hover */
+  border-color: #fc9008; /* Darken the border slightly on hover */
 }
 
 .profile-button img {
@@ -104,7 +104,7 @@
   display: flex;
   flex-direction: column;
   align-items: center; /* Align buttons vertically */
-  border-right: 3px solid #ffd53b; /* Add a border on the right */
+  border-right: 3px solid #f69512; /* Add a border on the right */
 }
 
 .sidebar-button {
@@ -124,7 +124,7 @@
 }
 
 .sidebar-button:hover {
-  background-color: #ffd53b; /* Darker yellow on hover */
+  background-color: #f69512; /* Darker yellow on hover */
 }
 
 .App-header {

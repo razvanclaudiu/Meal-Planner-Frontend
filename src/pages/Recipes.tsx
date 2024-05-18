@@ -1,7 +1,7 @@
 import React from 'react';
 import '../stylesheets/Recipe.css';
 import Recipe from "../interface/RecipeInterface";
-import RecipeItem from "../items/RecipeItem";
+import RecipeComponent from "../components/RecipeComponent";
 
 
 interface Props {
@@ -22,7 +22,7 @@ const Recipes: React.FC<Props> = ({ recipes }) => {
                             window.dispatchEvent(new Event('popstate'));
                         }}
                     >
-                        <RecipeItem recipe={recipe} />
+                        <RecipeComponent recipe={recipe} />
                     </button>
                 ))}
             </div>

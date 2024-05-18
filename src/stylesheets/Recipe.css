@@ -7,7 +7,7 @@
 
 .recipe-list {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap */
+    flex-wrap: wrap; /* Allow components to wrap */
     justify-content: center; /* Center the recipes horizontally */
     gap: 30px;
     padding: 30px 5% 0 5%; /* Adjust the padding */
@@ -43,8 +43,8 @@
     right: -5px;
     width: calc(100% ); /* Adjust the width */
     height: calc(100% ); /* Adjust the height */
-    border-bottom: 7px solid #ffd53b; /* Yellow outline on bottom */
-    border-right: 7px solid #ffd53b; /* Yellow outline on right */
+    border-bottom: 7px solid #f69512; /* Yellow outline on bottom */
+    border-right: 7px solid #f69512; /* Yellow outline on right */
     border-radius: 10px;
 }
 
@@ -64,7 +64,7 @@
 
     /* Adjust margin for recipe item on mobile */
     .recipe-item:nth-child(odd) {
-        margin-right: 20px; /* Add margin only to odd items */
+        margin-right: 20px; /* Add margin only to odd components */
     }
 
     /* Adjust size of recipe item image for mobile */

@@ -2,8 +2,8 @@
 
 interface Review {
     id: number;
-    userId: number; // Changed to user ID
-    recipeId: number; // Changed to recipe ID
+    user_id: number; // Changed to user ID
+    recipe_id: number; // Changed to recipe ID
     description: string;
     rating: number;
     image: string;

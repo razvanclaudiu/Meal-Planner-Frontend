@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Recipe from '../interface/RecipeInterface';
-import '../stylesheets/Create.css';
+import '../stylesheets/CreateRecipe.css';
+import {fetchRecipeData} from "../api/recipeApi";
 
 interface CreateProps {
     onClose: () => void;
 }
 
-const Create: React.FC<CreateProps> = ({ onClose }) => {
+const CreateRecipe: React.FC<CreateProps> = ({ onClose }) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState<Recipe>({
         id: 0,
@@ -28,6 +29,7 @@ const Create: React.FC<CreateProps> = ({ onClose }) => {
     const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [categoryLimitExceeded, setCategoryLimitExceeded] = useState(false); // Add state for category limit
 
     useEffect(() => {
         const fetchData = async () => {
@@ -92,7 +94,9 @@ const Create: React.FC<CreateProps> = ({ onClose }) => {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const selectedFile = e.target.files[0];
-            if (selectedFile.type === 'image/jpeg') {
+            const imageTypes = ['image/jpeg', 'image/jpg'];
+
+            if (imageTypes.includes(selectedFile.type)) {
                 const imageName = selectedFile.name;
                 setFormData(prevData => ({
                     ...prevData,
@@ -100,7 +104,7 @@ const Create: React.FC<CreateProps> = ({ onClose }) => {
                 }));
                 setSelectedFile(selectedFile);
             } else {
-                alert('Please select a .jpeg file.');
+                alert('Please select a valid image file (jpeg, jpg).');
             }
         }
     };
@@ -110,21 +114,28 @@ const Create: React.FC<CreateProps> = ({ onClose }) => {
         const selectedIds = Array.from(options)
             .filter(option => option.selected)
             .map(option => Number(option.value)); // Convert value to number
+
+        if (e.target.name === 'categories_id' && selectedIds.length + selectedCategories.length > 6) {
+            setCategoryLimitExceeded(true); // Set limit exceeded flag
+            return;
+        } else {
+            setCategoryLimitExceeded(false); // Reset limit exceeded flag if under limit
+        }
+
         setSelected(prevSelected => [...prevSelected, ...selectedIds]);
+
         if (e.target.name === 'ingredients_id') {
             setFormData(prevData => ({
                 ...prevData,
                 ingredients_id: [...prevData.ingredients_id, ...selectedIds]
             }));
-        }
-        else {
+        } else {
             setFormData(prevData => ({
                 ...prevData,
                 categories_id: [...prevData.categories_id, ...selectedIds]
             }));
         }
     };
-
 
     const handleDeselect = (id: number, setSelected: React.Dispatch<React.SetStateAction<number[]>>) => {
         setSelected(prevSelected => prevSelected.filter(itemId => itemId !== id));
@@ -187,7 +198,7 @@ const Create: React.FC<CreateProps> = ({ onClose }) => {
                                         'Authorization': `Bearer ${token}`
                                     },
                                     body: JSON.stringify({
-                                        recipeId: newRecipeId, // Send the recipe ID
+                                        id: newRecipeId, // Send the recipe ID
                                         imageData: imageData // Send image data
                                     })
                                 });
@@ -226,7 +237,7 @@ const Create: React.FC<CreateProps> = ({ onClose }) => {
                     <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} />
 
                     <label htmlFor="image">Image: <span className="required">*</span></label>
-                    <input type="file" id="image" name="image" accept=".jpeg" onChange={handleImageChange} />
+                    <input type="file" id="image" name="image" accept=".jpeg, .jpg" onChange={handleImageChange} />
 
                     <label htmlFor="timeToCook">Time to Cook: <span className="required">*</span></label>
                     <input type="text" id="timeToCook" name="timeToCook" value={formData.timeToCook} onChange={handleChange} />
@@ -270,6 +281,7 @@ const Create: React.FC<CreateProps> = ({ onClose }) => {
                                 </div>
                             ))}
                         </div>
+                        {categoryLimitExceeded && <p className="error-message">You can only select up to 6 categories.</p>} {/* Display error message */}
                     </div>
 
                     <label htmlFor="videoLink">Video Link:</label>
@@ -282,4 +294,4 @@ const Create: React.FC<CreateProps> = ({ onClose }) => {
     );
 };
 
-export default Create;
+export default CreateRecipe;

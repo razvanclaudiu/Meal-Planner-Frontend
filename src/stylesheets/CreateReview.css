@@ -1,5 +1,5 @@
-/* Create.css */
-.create-modal {
+/* CreateRecipe.css */
+.create-review-modal {
     position: fixed;
     z-index: 999;
     left: 0;
@@ -13,10 +13,10 @@
 
 }
 
-.create-modal-content {
+.create-review-modal-content {
     background-color: white;
     width: 500px;
-    height: 82%;
+    height: 460px;
     padding: 70px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* Box shadow for depth effect */
@@ -28,23 +28,23 @@
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.create-modal-content form-group{
+.create-review-modal-content form-group{
     margin-bottom: 15px; /* Add some spacing between form groups */
     display: flex;
     flex-direction: column; /* Arrange input and label in a vertical fashion */
-    align-items: flex-start; /* Align items to the start of the container */
+    align-items: flex-start; /* Align components to the start of the container */
     width: 100%; /* Set the width to 100% */
 }
 
-.create-modal-content form {
+.create-review-modal-contentform {
     width: 100%; /* Set form width to 100% */
 }
 
-.create-modal-content form label {
+.create-review-modal-content form label {
     margin-bottom: 5px; /* Add some spacing between label and input */
 }
 
-.create-modal-content form input{
+.create-review-modal-content form input{
     width: calc(100%); /* Set input width to 100% minus padding */
     padding: 8px; /* Add some padding to the input */
     margin-bottom: 15px; /* Add some spacing between form fields */
@@ -52,7 +52,7 @@
     border-radius: 5px; /* Add border radius */
     box-sizing: border-box; /* Include padding and border in the width */
 }
-.create-modal-content form textarea {
+.create-review-modal-content form textarea {
     width: calc(100%); /* Set input width to 100% minus padding */
     height: 100px; /* Set a fixed height */
     padding: 8px; /* Add some padding to the input */
@@ -63,7 +63,7 @@
     resize:none;
 }
 
-.create-modal-content form select {
+.create-review-modal-content form select {
     width: calc(100%); /* Set input width to 100% minus padding */
     padding: 8px; /* Add some padding to the input */
     margin-bottom: 15px; /* Add some spacing between form fields */
@@ -72,44 +72,39 @@
     box-sizing: border-box; /* Include padding and border in the width */
 }
 
-.create-modal-content form button {
+.create-review-modal-content form button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #ffd53b; /* Change button color to yellow */
+    background-color: #f69512; /* Change button color to yellow */
     color: black; /* Change text color to black */
     cursor: pointer;
     align-self: center; /* Center the button horizontally */
 }
 
-.create-modal-content form button:hover {
-    background-color: #ffcc00; /* Darker yellow on hover */
+.create-review-modal-content form button:hover {
+    background-color: #fc9008; /* Darker yellow on hover */
 }
 
-.required {
+.create-review-modal-content .required {
     color: red;
     font-weight: bold;
 }
 
-.selected-box {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 8px;
-    width: calc(100% - 16px); /* Adjust width to fit inside the select container */
-    max-height: 100px; /* Limit height to fit inside the container */
-    overflow-y: auto; /* Enable vertical scrolling */
-    margin-bottom: 15px;
+.star-rating {
+    font-size: 50px; /* Initial size of the stars */
+
 }
 
-.selected-item {
-    background-color: #f0f0f0; /* Light gray background */
-    padding: 5px;
-    border-radius: 3px;
-    margin-bottom: 5px;
-    cursor: pointer;
+.star-empty {
+    color: #ccc; /* Default color of empty stars */
+    transition: color 0.3s; /* Smooth transition effect */
+    cursor: pointer; /* Change cursor to pointer on hover */
 }
 
-.selected-item:hover {
-    background-color: #e0e0e0; /* Darker gray on hover */
+.star-filled {
+    color: #ffd700; /* Color of filled stars */
+    transition: color 0.3s; /* Smooth transition effect */
+    cursor: pointer; /* Change cursor to pointer on hover */
 }
 

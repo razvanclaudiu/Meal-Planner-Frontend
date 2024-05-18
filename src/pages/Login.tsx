@@ -74,6 +74,7 @@ function Login({ onClose }: LoginProps) {
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('username', username);
+            localStorage.setItem("userId", userData.id);
             onClose(); // Close the modal
         } catch (error) {
             console.error('Error fetching user data:', error);

@@ -28,7 +28,7 @@
     margin-bottom: 15px; /* Add some spacing between form groups */
     display: flex;
     flex-direction: column; /* Arrange input and label in a vertical fashion */
-    align-items: flex-start; /* Align items to the start of the container */
+    align-items: flex-start; /* Align components to the start of the container */
     width: 100%; /* Set the width to 100% */
 }
 
@@ -48,7 +48,7 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #ffd53b; /* Change button color to yellow */
+    background-color: #f69512; /* Change button color to yellow */
     color: black; /* Change text color to black */
     cursor: pointer;
     margin-top: 15px; /* Add some space above the button */
@@ -56,5 +56,5 @@
 }
 
 .log-in-submit:hover {
-    background-color: #ffcc00; /* Darker yellow on hover */
+    background-color: #fc9008; /* Darker yellow on hover */
 }

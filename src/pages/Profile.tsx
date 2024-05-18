@@ -3,7 +3,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import User from '../interface/UserInterface'; // Import User interface
 import '../stylesheets/Profile.css';
 import Recipe from "../interface/RecipeInterface";
-import RecipeItem from "../items/RecipeItem";
+import RecipeComponent from "../components/RecipeComponent";
+import image_not_found from "../images/image_not_found.png";
 
 interface ProfileProps {
     user: User | null; // Define prop for user data
@@ -47,6 +48,7 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
         localStorage.removeItem('username');
         localStorage.removeItem('userImage');
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('userId');
         setIsLoggedIn(false); // Set isLoggedIn to false
         navigate('/home'); // Redirect to home
     };
@@ -72,7 +74,8 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
             <div className="profile-header">
                 <h2>{name}</h2>
                 <div>
-                    <img src={`http://localhost:8080/api/images/user/${localStorage.getItem("userImage")}`} alt="Profile" />
+                    <img src={`http://localhost:8080/api/images/user/${localStorage.getItem("userImage")}`} alt="Profile" onError={(e) => {
+                        e.currentTarget.src = image_not_found; }}/>
                 </div>
                 <div className="separator"></div>
                 <div>
@@ -108,7 +111,7 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
                                     window.dispatchEvent(new Event('popstate'));
                                 }}
                             >
-                                <RecipeItem recipe={recipe} />
+                                <RecipeComponent recipe={recipe} />
                             </button>
                         ))
                     ) : (
