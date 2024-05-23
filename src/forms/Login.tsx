@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../stylesheets/Login.css';
 import User from '../interface/UserInterface';
-
 interface LoginProps {
     onClose: () => void; // Specify the type for onClose prop
+    checkNotif: (id : number) => void;
 }
 
-function Login({ onClose }: LoginProps) {
+function Login({ onClose, checkNotif }: LoginProps) {
     const modalRef = useRef<HTMLDivElement>(null); // Ref for the modal content
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -75,6 +75,8 @@ function Login({ onClose }: LoginProps) {
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('username', username);
             localStorage.setItem("userId", userData.id);
+            localStorage.setItem("semaphore", Math.random().toString());
+            checkNotif(userData.id);
             onClose(); // Close the modal
         } catch (error) {
             console.error('Error fetching user data:', error);

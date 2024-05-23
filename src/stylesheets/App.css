@@ -42,6 +42,26 @@
   cursor: pointer;
 }
 
+.top-bar .register-button {
+  position: absolute;
+  right: 120px;
+  bottom: 10px;
+  font-size: 16px; /* Decreased font size */
+  border-radius: 20px; /* Added border radius for rounded corners */
+  padding: 10px 20px; /* Adjusted padding */
+  background: #f69512;
+  border: none;
+}
+
+.top-bar .register-button:hover {
+  background: #fc9008; /* Change background color on hover */
+  cursor: pointer;
+}
+
+
+
+
+
 
 .top-bar .create-button {
   position: absolute;
@@ -156,6 +176,61 @@
   left: 14px;
   bottom: 10px;
 }
+
+/* Notification.css */
+
+/* Keyframes for sliding in and out */
+@keyframes slideInOut {
+  0% {
+    left: -100%;
+  }
+  25% {
+    left: 0px;
+  }
+  75% {
+    left: 0px;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+/* Notification container */
+.notifications {
+  position: fixed;
+  top: 250px;
+  width: 115px;
+  left: -100%; /* Start off-screen */
+  animation: slideInOut 4s ease-in-out forwards;
+  z-index: 1000;
+  text-align: center;
+}
+
+.notification {
+  background-color: #e1e1e1;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation-fill-mode: forwards;
+}
+
+.notification img {
+    width: 80px;
+    height: 80px;
+    margin-top: 10px;
+}
+
+/* Add animation delay */
+.notifications:nth-child(1) {
+  animation-delay: 0s;
+}
+.notifications:nth-child(2) {
+  animation-delay: 2s;
+}
+
+
+
 
 .App-link {
   color: #61dafb;

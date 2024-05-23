@@ -1,5 +1,3 @@
-
-
 interface Review {
     id: number;
     user_id: number; // Changed to user ID

@@ -1,0 +1,219 @@
+.awards-wrapper {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    width: 99%;
+    height: 100%; /* Full viewport height */
+    position: relative; /* Ensure it acts as a relative container */
+}
+
+.awards-container {
+    width: 100%;
+    height: 100%;
+}
+
+.cook-book {
+    width: 100%; /* Fill the container width */
+    height: 99%; /* Fill the container height */
+}
+
+.welcome-aboard {
+    position: absolute; /* Position the "Welcome Aboard" image absolutely */
+    top: 16%; /* Align to the vertical center */
+    left: 28%; /* Align to the horizontal center */
+    transform: translate(-50%, -50%); /* Center the image */
+    width: 6%; /* Adjust size as needed */
+    height: 12%; /* Maintain aspect ratio */
+    z-index: 2; /* Higher value to be on top */
+    transition: transform 0.3s ease; /* Smooth transition for the hover effect */
+}
+
+.first-taste {
+    position: absolute;
+    top: 16%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.recipe-developer {
+    position: absolute;
+    top: 35%;
+    left: 28%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.culinary-architect {
+    position: absolute;
+    top: 35%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.taste-tester {
+    position: absolute;
+    top: 55%;
+    left: 28%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.savory-critic {
+    position: absolute;
+    top: 55%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.epicurean-evaluator {
+    position: absolute;
+    top: 75%;
+    left: 28%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.gourmet-judge {
+    position: absolute;
+    top: 75%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.star-chef {
+    position: absolute;
+    top: 16%; /* Align to the vertical center */
+    left: 60%; /* Align to the horizontal center */
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.master-chef {
+    position: absolute;
+    top: 16%;
+    left: 72%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.cooking-enthusiast {
+    position: absolute;
+    top: 35%;
+    left: 60%; /* Align to the horizontal center */
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.culinary-virtuoso {
+    position: absolute;
+    top: 35%;
+    left: 72%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.gastronomy-guru {
+    position: absolute;
+    top: 55%;
+    left: 60%; /* Align to the horizontal center */
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.seasoned-member {
+    position: absolute;
+    top: 55%;
+    left: 72%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.veteran-cook {
+    position: absolute;
+    top: 75%;
+    left: 60%; /* Align to the horizontal center */
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.culinary-explorer {
+    position: absolute;
+    top: 75%;
+    left: 72%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+/* Add hover effect for all images except the cook-book */
+.awards-container img:not(.cook-book):hover {
+    transform: translate(-50%, -50%) scale(1.1); /* Slightly increase size on hover */
+}
+
+.popup {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 30px;
+    border-color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for visibility */
+    pointer-events: none; /* Prevent popup from interfering with hover */
+    z-index: 3;
+    visibility: hidden; /* Initially hidden */
+}
+
+.popup.visible {
+    opacity: 1;
+    pointer-events: auto; /* Allow interactions with the popup */
+    visibility: visible; /* Make it visible */
+}

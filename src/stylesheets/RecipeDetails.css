@@ -116,6 +116,42 @@
     background-color: #c82333;
 }
 
+.recipe-details-edit-button-review {
+    background-color: #f69512;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    align-self: center;
+    position: absolute;
+    bottom: 25px;
+    left: 40px;
+}
+
+.recipe-details-edit-button-review:hover {
+    background-color: #fc9008;
+}
+
+.recipe-details-delete-button-review {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    align-self: center;
+    position: absolute;
+    bottom: 25px;
+    right: 40px;
+}
+
+.recipe-details-delete-button-review:hover {
+    background-color: #c82333;
+}
+
 .recipe-details-review-button {
     background-color: #f69512;
     border: none;

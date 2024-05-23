@@ -8,7 +8,7 @@ export const RecipeProvider = ({ children }) => {
     const [recipes, setRecipes] = useState([]);
 
     return (
-        <RecipeContext.Provider value={{ recipes, setRecipes }}>
+        <RecipeContext.Provider value={{ recipes, setRecipes}}>
             {children}
         </RecipeContext.Provider>
     );

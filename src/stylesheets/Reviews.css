@@ -14,7 +14,7 @@
 
 .reviews-modal-content {
     background-color: white;
-    width: 700px;
+    width: 750px;
     height: 600px;
     padding: 70px;
     border-radius: 8px;
@@ -27,9 +27,37 @@
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
+.review {
+    display: flex;
+    align-items: flex-start; /* Align items at the start of the container */
+    gap: 80px; /* Space between the elements */
+    margin-bottom: 20px;
+    background: #eac5b4;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.review-author {
+    font-size: 13px;
+    margin-top: -20px;
+
+}
+
+.review-header {
+    /* Add your styles for the review-header here */
+    font-size: 1.5em; /* Example style */
+    font-weight: bold; /* Example style */
+    /* Other styles as needed */
+}
+
+.review-body {
+    margin-bottom: 20px; /* Add some spacing below the body */
+    /* Other styles as needed */
+}
+
 .review img {
     width: 250px; /* Set a fixed width */
     height: 250px; /* Set a fixed height */
     border-radius: 5%; /* Make the image round */
-    margin-bottom: 20px; /* Add some spacing below the image */
+    margin-bottom: -40px;
 }

@@ -4,25 +4,28 @@ import Recipe from "../interface/RecipeInterface";
 import StarRating from '../components/StarRating';
 import image_not_found from "../images/image_not_found.png";
 import {useNavigate} from "react-router-dom";
-import CreateReview from "./CreateReview";
+import CreateReview from "../forms/CreateReview";
 import {fetchRecipeData} from "../api/recipeApi";
-import { useRecipeContext } from '../context/RecipeProvider';
 import Reviews from "./Reviews";
+import {useRecipeContext} from "../context/RecipeProvider";
+import Review from "../interface/ReviewInterface";
+import User from "../interface/UserInterface";
 
 interface Props {
     recipe: Recipe;
+    checkNotif: (id : number) => void;
 }
 
-
-
-const RecipeDetails: React.FC<Props> = ({ recipe }) => {
+const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
     const imageUrl = `http://localhost:8080/api/images/recipe/${recipe.image}`;
     const [categories, setCategories] = useState<string[]>([]);
     const [ingredients, setIngredients] = useState<string[]>([]);
     const [isOwner, setIsOwner] = useState<boolean>(false);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [hasReviewed, setHasReviewed] = useState<boolean>(false);
     const [showCreateReviewForm, setShowCreateReviewForm] = useState(false);
     const [showReviewsPage, setShowReviewsPage] = useState(false);
+    const [reviewId, setReviewId] = useState<number>(0);
     const navigate = useNavigate();
     const token = localStorage.getItem('accessToken'); // Retrieve the token from localStorage
 
@@ -32,8 +35,9 @@ const RecipeDetails: React.FC<Props> = ({ recipe }) => {
         // Fetch categories and ingredients
         fetchCategories();
         fetchIngredients();
+        fetchReviews();
         checkLoginStatus();
-    }, []);
+    }, [showCreateReviewForm]);
 
     const fetchCategories = async () => {
         try {
@@ -55,9 +59,24 @@ const RecipeDetails: React.FC<Props> = ({ recipe }) => {
         }
     };
 
-    function handleEditButtonClick(id: number) {
-
+    const fetchReviews = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/reviews/recipe/${recipe.id}`);
+            const data = await response.json();
+            data.forEach((review: Review) => {
+                if (review.user_id === parseInt(localStorage.getItem('userId') || '0', 10)) {
+                    setHasReviewed(true);
+                    setReviewId(review.id);
+                }
+            });
+        } catch (error) {
+            console.error("Error fetching reviews:", error);
+        }
     }
+
+    const handleEditButtonClick = (id: number) => {
+        // Implement edit recipe functionality
+    };
 
     const handleDeleteButtonClick = async (id: number) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this recipe?");
@@ -83,39 +102,64 @@ const RecipeDetails: React.FC<Props> = ({ recipe }) => {
         } catch (error) {
             console.error("Error deleting the recipe:", error);
         }
-
-
     };
 
     const handleReviewButtonClick = () => {
         setShowCreateReviewForm(true);
+    };
 
-    }
-
-    function handleReviewPageButtonClick() {
+    const handleReviewPageButtonClick = () => {
         setShowReviewsPage(true);
-    }
+    };
 
-    const checkLoginStatus = async () => {
+    const handleEditReviewButtonClick = () => {
+        // Implement edit review functionality
+    };
+
+    const handleDeleteReviewButtonClick = async () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete your review?");
+        if (!confirmDelete) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/reviews/${reviewId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                setHasReviewed(false);
+                setReviewId(0);
+                fetchRecipeData(setRecipes);
+            } else {
+                console.error("Failed to delete the review");
+            }
+        } catch (error) {
+            console.error("Error deleting the review:", error);
+        }
+    };
+
+    const checkLoginStatus = () => {
         if (token) {
             setIsLoggedIn(true);
-            if (localStorage.getItem("username")=== recipe.username) {
+            if (localStorage.getItem("username") === recipe.username) {
                 setIsOwner(true);
             }
         }
     };
 
-    function handleModalClose() {
+    const handleModalClose = () => {
         setShowCreateReviewForm(false);
         setShowReviewsPage(false);
-    }
-
-
-
+    };
 
     return (
         <>
-            {showCreateReviewForm && <CreateReview recipeId={recipe.id} onClose={handleModalClose} />}
+            {showCreateReviewForm && <CreateReview recipeId={recipe.id} onClose={handleModalClose} checkNotif={checkNotif}/>}
             {showReviewsPage && <Reviews recipeId={recipe.id} onClose={handleModalClose} />}
             <div className="recipe-details-container">
                 <img src={imageUrl} alt={recipe.title} className="recipe-image" onError={(e) => {
@@ -136,8 +180,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe }) => {
                     <div className="separator"></div>
 
                     {recipe.videoLink ? (
-                        <p><strong>Video Link:</strong> <a href={recipe.videoLink} target="_blank"
-                                                           rel="noopener noreferrer">Watch Video</a></p>
+                        <p><strong>Video Link:</strong> <a href={recipe.videoLink} target="_blank" rel="noopener noreferrer">Watch Video</a></p>
                     ) : (
                         <p><strong>Video Link:</strong> No video recipe</p>
                     )}
@@ -158,12 +201,18 @@ const RecipeDetails: React.FC<Props> = ({ recipe }) => {
                                 </>
                             ) : (
                                 <>
-                                    <button className="recipe-details-review-button" onClick={handleReviewButtonClick}>Post Review</button>
+                                    {hasReviewed ? (
+                                        <>
+                                            <button className="recipe-details-edit-button-review" onClick={handleEditReviewButtonClick}>Edit Review</button>
+                                            <button className="recipe-details-delete-button-review" onClick={handleDeleteReviewButtonClick}>Delete Review</button>
+                                        </>
+                                    ) : (
+                                        <button className="recipe-details-review-button" onClick={handleReviewButtonClick}>Post Review</button>
+                                    )}
                                 </>
                             )}
                         </>
                     )}
-
                 </div>
             </div>
             <div className="recipe-container-2">

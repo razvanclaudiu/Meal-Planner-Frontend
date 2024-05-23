@@ -5,6 +5,9 @@ import '../stylesheets/Profile.css';
 import Recipe from "../interface/RecipeInterface";
 import RecipeComponent from "../components/RecipeComponent";
 import image_not_found from "../images/image_not_found.png";
+import Review from "../interface/ReviewInterface";
+import ReviewComponent from "../components/ReviewComponent";
+import ReviewItem from "../components/ReviewItem";
 
 interface ProfileProps {
     user: User | null; // Define prop for user data
@@ -14,6 +17,8 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
     const navigate = useNavigate(); // Get the navigate function
     const [recipes, setRecipes] = useState<Recipe[]>([]);
+    const [reviews, setReviews] = useState<Review[]>([]);
+
 
     useEffect(() => {
         const fetchRecipes = async (userId: number) => {
@@ -38,8 +43,31 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
             }
         };
 
+        const fetchReviews = async (userId: number) => {
+            try {
+                const requestOptions = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Add any other headers you need for CORS
+                    }
+                };
+
+                const response = await fetch(`http://localhost:8080/api/reviews/user/${userId}`, requestOptions);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch reviews');
+                }
+                const data = await response.json();
+                setReviews(data || []);
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+                // Handle error, maybe show a message to the user
+            }
+        }
+
         if (user) {
             fetchRecipes(user.id); // Fetch recipes when the user data is available
+            fetchReviews(user.id); // Fetch reviews when the user data is available
         }
     }, [user]);
 
@@ -49,6 +77,7 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
         localStorage.removeItem('userImage');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('userId');
+        localStorage.removeItem('semaphore');
         setIsLoggedIn(false); // Set isLoggedIn to false
         navigate('/home'); // Redirect to home
     };
@@ -67,7 +96,7 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
     }
 
     // Provide default values for user properties
-    const { recipeIds = [], reviewIds = [], name, image, username, title, level, experience, creationDate } = user;
+    const { recipes_id= [], reviews_id= [], name, image, username, title, level, experience, creationDate } = user;
 
     return (
         <div className="profile">
@@ -115,20 +144,35 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
                             </button>
                         ))
                     ) : (
-                        <p>Loading recipes...</p>
+                        <p>No recipe yet</p>
                     )}
                     </div>
 
                 </div>
+
                 <div className="profile-reviews">
                     <h3 className="section-title">My Reviews</h3>
-                    {reviewIds.length > 0 ? (
-                        reviewIds.map((reviewId, index) => (
-                            <p key={index}>Review ID: {reviewId}</p>
-                        ))
-                    ) : (
-                        <p>No reviews available</p>
-                    )}
+                    <div className="review-list-profile">
+                        <div className="review-list-profile2">
+                        {reviews.length > 0 ? (
+                            reviews.map((review) => (
+                                <button
+                                    key={review.recipe_id}
+                                    className="review-item-button"
+                                    onClick={() => {
+                                        window.history.pushState(null, '', `/recipe/${review.recipe_id}`);
+                                        window.dispatchEvent(new Event('popstate'));
+                                    }}
+                                >
+                                    <ReviewItem review={review}/>
+                                </button>
+
+                            ))
+                        ) : (
+                            <p>No reviews yet</p>
+                        )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,14 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../stylesheets/CreateReview.css';
 import Review from '../interface/ReviewInterface';
 import {fetchRecipeData} from "../api/recipeApi";
-import { useRecipeContext } from '../context/RecipeProvider';
+import {useRecipeContext} from "../context/RecipeProvider";
 
 interface CreateReviewProps {
     recipeId: number; // Recipe ID passed as a prop
     onClose: () => void;
+    checkNotif: (id : number) => void;
 }
 
-const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose }) => {
+const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose, checkNotif }) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     const { setRecipes } = useRecipeContext();
@@ -156,7 +157,22 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose }) => {
                         };
 
                         reader.readAsDataURL(selectedFile); // Read file as data URL
+                    }
+                    const url = `http://localhost:8080/api/users/username/${localStorage.getItem("username")}`;
+
+                    try {
+                        const response = await fetch(url, {});
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        const userData = await response.json();
+                        // Save data in local storage and close modal
+                        localStorage.setItem('user', JSON.stringify(userData));
+                        checkNotif(userData.id);
                         fetchRecipeData(setRecipes);
+                    }
+                    catch (error) {
+                        console.error('Error fetching user data:', error);
                     }
                 } else {
                     console.error('Failed to create recipe:', response.statusText);
@@ -167,7 +183,7 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose }) => {
         } else {
             console.error('Token not found in localStorage!');
         }
-
+        localStorage.setItem("semaphore", String(Math.random()));
         onClose();
     };
 

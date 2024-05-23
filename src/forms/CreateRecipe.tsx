@@ -5,9 +5,10 @@ import {fetchRecipeData} from "../api/recipeApi";
 
 interface CreateProps {
     onClose: () => void;
+    checkNotif: (id : number) => void;
 }
 
-const CreateRecipe: React.FC<CreateProps> = ({ onClose }) => {
+const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState<Recipe>({
         id: 0,
@@ -215,6 +216,22 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose }) => {
 
                         reader.readAsDataURL(selectedFile); // Read file as data URL
                     }
+
+                    const url = `http://localhost:8080/api/users/username/${localStorage.getItem("username")}`;
+
+                    try {
+                        const response = await fetch(url, {});
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        const userData = await response.json();
+                        // Save data in local storage and close modal
+                        localStorage.setItem('user', JSON.stringify(userData));
+                        checkNotif(userData.id);
+                    }
+                    catch (error) {
+                        console.error('Error fetching user data:', error);
+                    }
                 } else {
                     console.error('Failed to create recipe:', response.statusText);
                 }
@@ -224,7 +241,6 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose }) => {
         } else {
             console.error('Token not found in localStorage!');
         }
-
         onClose();
     };
 

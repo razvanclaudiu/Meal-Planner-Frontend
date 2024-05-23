@@ -105,9 +105,7 @@
 
 
 .profile-reviews {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    gap: 20px; /* Gap between items */
     border: 1px solid #e0e0e0;
     position: absolute;
     top: 440px;
@@ -119,6 +117,16 @@
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.review-list-profile {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Create responsive columns */
+    display: contents; /* Allow the items to follow the grid layout of the parent */
+}
+
+.review-list-profile2 {
+    display: contents;
 }
 
 .recipes {
@@ -160,6 +168,46 @@
     height: 175px; /* Set a fixed height */
     border-radius: 10px 10px 10px 10px; /* Round the top corners */
 }
+
+.review-item {
+    text-align: center;
+    cursor: pointer;
+    background: white;
+    width: 200px;
+    height: 270px;
+    margin-bottom: 20px;
+    border: none;
+    padding: 10px;
+}
+
+.review-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.review-item:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: calc(100%);
+    height: calc(97%);
+    border-bottom: 7px solid #f69512;
+    border-right: 7px solid #f69512;
+    border-radius: 10px;
+}
+
+.review-item img {
+    width: 175px;
+    height: 175px;
+    border-radius: 10px 10px 10px 10px; /* Round the top corners */
+}
+
+.review-item-button {
+    border: none;
+    background-color: white;
+}
+
 
 .progress-bar {
     width: 100%;
