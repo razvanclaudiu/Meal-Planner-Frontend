@@ -13,7 +13,7 @@
 }
 
 .reviews-modal-content {
-    background-color: white;
+    background-color: #222831;
     width: 750px;
     height: 600px;
     padding: 70px;
@@ -32,9 +32,11 @@
     align-items: flex-start; /* Align items at the start of the container */
     gap: 80px; /* Space between the elements */
     margin-bottom: 20px;
-    background: #eac5b4;
+    background: #222831;
     padding: 50px;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    color: white;
 }
 
 .review-author {

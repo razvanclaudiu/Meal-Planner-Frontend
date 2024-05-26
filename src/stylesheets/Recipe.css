@@ -16,9 +16,10 @@
 .recipe-item {
     text-align: center;
     cursor: pointer;
-    background: #f5f5f5;
+    background: #222831;
     width: 320px;
     border: none;
+    border-radius: 10px;
 }
 
 .recipe {
@@ -29,23 +30,29 @@
     width: 275px; /* Make the image fill the container */
     height: 275px; /* Set a fixed height */
     border-radius: 10px 10px 10px 10px; /* Round the top corners */
+    margin-top: 10px;
 }
 
 .recipe-item:hover {
     transform: translateY(-5px); /* Move the item up slightly on hover */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
 }
 
 .recipe-item:hover::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    right: -5px;
-    width: calc(100% ); /* Adjust the width */
-    height: calc(100% ); /* Adjust the height */
-    border-bottom: 7px solid #f69512; /* Yellow outline on bottom */
-    border-right: 7px solid #f69512; /* Yellow outline on right */
+    bottom: -4px;
+    right: -4px;
+    width: calc(98.5% ); /* Adjust the width */
+    height: calc(99.5% ); /* Adjust the height */
+    border-bottom: 7px solid #A91D3A; /* Yellow outline on bottom */
+    border-right: 7px solid #A91D3A; /* Yellow outline on right */
     border-radius: 10px;
+}
+
+.recipe-item h2 {
+    color: #A91D3A;
+    margin: 10px 0;
 }
 
 

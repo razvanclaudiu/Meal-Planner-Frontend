@@ -48,7 +48,7 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #f69512; /* Change button color to yellow */
+    background-color: #A91D3A; /* Change button color to yellow */
     color: black; /* Change text color to black */
     cursor: pointer;
     margin-top: 15px; /* Add some space above the button */
@@ -56,5 +56,5 @@
 }
 
 .log-in-submit:hover {
-    background-color: #fc9008; /* Darker yellow on hover */
+    background-color: #C73659; /* Darker yellow on hover */
 }

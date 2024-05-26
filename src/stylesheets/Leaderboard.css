@@ -1,0 +1,148 @@
+/* Leaderboard.css */
+
+.leaderboard-container {
+    margin: 0 auto;
+    background-color: #222831;
+    width: 70%;
+}
+
+.leaderboard-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    color: white;
+}
+
+.leaderboard-list {
+    height: 730px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.leaderboard-item {
+    border-radius: 5px;
+    padding: 10px;
+    background: #222831;
+}
+
+.leaderboard-item h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.leaderboard-item p {
+    margin: 0;
+}
+
+/* UserComponent.css */
+
+.user-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.user-details p {
+    margin: 5px;
+    font-weight: bold; /* Optionally apply bold font to user details */
+}
+
+.user-component-username {
+    width: 180px;
+}
+
+.user-component-title {
+    width: 180px;
+}
+
+.user-component-level {
+    width: 180px;
+}
+
+.user-component-awards {
+    width: 180px;
+}
+
+.user-component-recipes {
+    width: 180px;
+}
+
+.user-component-reviews {
+    width: 180px;
+}
+
+.leaderboard-username {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    left: 27.3%;
+    top: 14%;
+    cursor: pointer;
+}
+
+.leaderboard-title {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    left: 38.40%;
+    top: 14%;
+    cursor: pointer;
+}
+
+.leaderboard-level {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    left: 48%;
+    top: 14%;
+    cursor: pointer;
+}
+
+.leaderboard-awards {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    left: 57.5%;
+    top: 14%;
+    cursor: pointer;
+}
+
+.leaderboard-recipes {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    left: 67.5%;
+    top: 14%;
+    cursor: pointer;
+}
+
+.leaderboard-reviews {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    left: 77.3%;
+    top: 14%;
+    cursor: pointer;
+}
+

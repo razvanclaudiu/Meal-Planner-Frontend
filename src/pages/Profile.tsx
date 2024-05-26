@@ -4,9 +4,8 @@ import User from '../interface/UserInterface'; // Import User interface
 import '../stylesheets/Profile.css';
 import Recipe from "../interface/RecipeInterface";
 import RecipeComponent from "../components/RecipeComponent";
-import image_not_found from "../images/image_not_found.png";
+import image_not_found from "../assets/images/image_not_found.png";
 import Review from "../interface/ReviewInterface";
-import ReviewComponent from "../components/ReviewComponent";
 import ReviewItem from "../components/ReviewItem";
 
 interface ProfileProps {
@@ -103,7 +102,7 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
             <div className="profile-header">
                 <h2>{name}</h2>
                 <div>
-                    <img src={`http://localhost:8080/api/images/user/${localStorage.getItem("userImage")}`} alt="Profile" onError={(e) => {
+                    <img src={`http://localhost:8080/api/images/user/${user.image}`} alt="Profile" onError={(e) => {
                         e.currentTarget.src = image_not_found; }}/>
                 </div>
                 <div className="separator"></div>
@@ -123,12 +122,17 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
                     <p><strong>Member since:</strong> {new Date(creationDate).toLocaleDateString()}</p>
                 </div>
                 <div className="separator"></div>
-                <button className="log-out-button" onClick={handleLogout}>Logout</button>
+                {user.username === localStorage.getItem("username") && <button className="log-out-button" onClick={handleLogout}>Logout</button>}
             </div>
 
             <div>
                 <div className="profile-recipes">
-                    <h3 className="section-title">My Recipes</h3>
+                    {user.username === localStorage.getItem("username") ? (
+                        <h3 className="section-title">My Recipes</h3>
+                        ) : (
+                        <h3 className="section-title">{user.username}'s Recipes</h3>
+                    )}
+
                     <div className="recipe-list-profile">
                     {recipes.length > 0 ? (
                         recipes.map(recipe => (
@@ -151,7 +155,11 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
                 </div>
 
                 <div className="profile-reviews">
-                    <h3 className="section-title">My Reviews</h3>
+                    {user.username === localStorage.getItem("username") ? (
+                        <h3 className="section-title">My Reviews</h3>
+                    ) : (
+                        <h3 className="section-title">{user.username}'s Reviews</h3>
+                    )}
                     <div className="review-list-profile">
                         <div className="review-list-profile2">
                         {reviews.length > 0 ? (

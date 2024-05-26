@@ -14,7 +14,7 @@
 }
 
 .create-review-modal-content {
-    background-color: white;
+    background-color: #222831;
     width: 500px;
     height: 460px;
     padding: 70px;
@@ -26,6 +26,7 @@
     align-items: center; /* Center align the elements */
     font-size: 20px;
     overflow-y: auto; /* Enable vertical scrolling */
+    color: white;
 }
 
 .create-review-modal-content form-group{
@@ -51,16 +52,19 @@
     border: 1px solid #ccc; /* Add a border to the input */
     border-radius: 5px; /* Add border radius */
     box-sizing: border-box; /* Include padding and border in the width */
+    background-color:  #393E46
 }
 .create-review-modal-content form textarea {
     width: calc(100%); /* Set input width to 100% minus padding */
-    height: 100px; /* Set a fixed height */
+    height: 110px; /* Set a fixed height */
     padding: 8px; /* Add some padding to the input */
     margin-bottom: 15px; /* Add some spacing between form fields */
     border: 1px solid #ccc; /* Add a border to the input */
     border-radius: 5px; /* Add border radius */
     box-sizing: border-box; /* Include padding and border in the width */
+    background-color:  #393E46;
     resize:none;
+    color: white;
 }
 
 .create-review-modal-content form select {
@@ -76,14 +80,14 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #f69512; /* Change button color to yellow */
+    background-color: #A91D3A; /* Change button color to yellow */
     color: black; /* Change text color to black */
     cursor: pointer;
     align-self: center; /* Center the button horizontally */
 }
 
 .create-review-modal-content form button:hover {
-    background-color: #fc9008; /* Darker yellow on hover */
+    background-color: #C73659; /* Darker yellow on hover */
 }
 
 .create-review-modal-content .required {

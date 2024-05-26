@@ -1,4 +1,4 @@
-export const fetchRecipeData = async (setRecipes) => {
+export const fetchUserData = async (setUsers) => {
     try {
         const requestOptions = {
             method: 'GET',
@@ -7,14 +7,13 @@ export const fetchRecipeData = async (setRecipes) => {
             }
         };
 
-        const response = await fetch('http://localhost:8080/api/recipes', requestOptions);
+        const response = await fetch('http://localhost:8080/api/users', requestOptions);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setRecipes(data);
+        setUsers(data);
     } catch (error) {
-        console.error('Error fetching recipes:', error);
+        console.error('Error fetching users:', error);
     }
-};
-
+}

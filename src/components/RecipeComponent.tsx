@@ -1,5 +1,5 @@
 import React from 'react';
-import image_not_found from '../images/image_not_found.png';
+import image_not_found from '../assets/images/image_not_found.png';
 import Recipe from "../interface/RecipeInterface";
 
 
@@ -16,10 +16,10 @@ const RecipeComponent: React.FC<Props> = ({ recipe }) => {
                 src={imageUrl}
                 alt={recipe.title}
                 onError={(e) => {
-                    e.currentTarget.src = image_not_found; // Set a placeholder image
+                    e.currentTarget.src = image_not_found;
                 }}
             />
-            <p>{recipe.title}</p>
+            <h2>{recipe.title}</h2>
         </div>
     );
 }

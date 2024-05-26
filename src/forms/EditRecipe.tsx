@@ -1,37 +1,40 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Recipe from '../interface/RecipeInterface';
 import '../stylesheets/CreateRecipe.css';
-import { fetchRecipeData } from "../api/recipeApi";
+import {useRecipeContext} from "../context/RecipeProvider";
+import {fetchRecipeData} from "../api/recipeApi";
 
-interface CreateProps {
+interface EditProps {
+    recipe: Recipe;
     onClose: () => void;
-    checkNotif: (id: number) => void;
 }
 
-const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
+const EditRecipe: React.FC<EditProps> = ({ recipe, onClose }) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState<Recipe>({
-        id: 0,
-        title: '',
-        image: '', // Store image name as a string
-        method: '',
-        timeToCook: '',
-        rating: 0,
-        username: localStorage.getItem('username') || '', // This will be replaced with user ID
-        videoLink: '',
-        ingredients_id: [],
-        reviews_id: [],
-        categories_id: []
+        id: recipe.id,
+        title: recipe.title,
+        image: recipe.image, // Store image name as a string
+        method: recipe.method,
+        timeToCook: recipe.timeToCook,
+        rating: recipe.rating,
+        username: recipe.username, // This will be replaced with user ID
+        videoLink: recipe.videoLink,
+        ingredients_id: recipe.ingredients_id,
+        reviews_id: recipe.reviews_id,
+        categories_id: recipe.categories_id
     });
 
     const [isFormValid, setIsFormValid] = useState(false);
     const [ingredients, setIngredients] = useState<{ id: number, name: string }[]>([]);
     const [categories, setCategories] = useState<{ id: number, name: string }[]>([]);
-    const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
+    const [selectedIngredients, setSelectedIngredients] = useState<number[]>(recipe.ingredients_id);
     const [ingredientQuantities, setIngredientQuantities] = useState<{ [key: number]: string }>({});
-    const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<number[]>(recipe.categories_id);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [categoryLimitExceeded, setCategoryLimitExceeded] = useState(false); // Add state for category limit
+
+    const { setRecipes } = useRecipeContext();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -51,6 +54,20 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
                 } else {
                     console.error('Failed to fetch categories:', categoriesResponse.statusText);
                 }
+
+                const quantityResponse = await fetch(`http://localhost:8080/api/quantities/recipe/${recipe.id}`);
+                if (quantityResponse.ok) {
+                        const data = await quantityResponse.json();
+                        for (let i = 0; i < data.length; i++) {
+                            setIngredientQuantities(prevQuantities => ({
+                                ...prevQuantities,
+                                [data[i].ingredientId]: data[i].quantity
+                            }));
+                        }
+                } else {
+                    console.error("Error fetching quantities:", quantityResponse.statusText);
+                }
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -99,11 +116,6 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
             const imageTypes = ['image/jpeg', 'image/jpg'];
 
             if (imageTypes.includes(selectedFile.type)) {
-                const imageName = selectedFile.name;
-                setFormData(prevData => ({
-                    ...prevData,
-                    image: imageName // Store image name as a string
-                }));
                 setSelectedFile(selectedFile);
             } else {
                 alert('Please select a valid image file (jpeg, jpg).');
@@ -173,8 +185,8 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
 
         if (token) {
             try {
-                const response = await fetch('http://localhost:8080/api/recipes', {
-                    method: 'POST',
+                const response = await fetch(`http://localhost:8080/api/recipes/${newRecipe.id}`, {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
@@ -250,7 +262,6 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
                         const userData = await response.json();
                         // Save data in local storage and close modal
                         localStorage.setItem('user', JSON.stringify(userData));
-                        checkNotif(userData.id);
                     }
                     catch (error) {
                         console.error('Error fetching user data:', error);
@@ -264,18 +275,19 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
         } else {
             console.error('Token not found in localStorage!');
         }
+        fetchRecipeData(setRecipes);
         onClose();
     };
 
     return (
         <div className="create-modal">
             <div className="create-modal-content" ref={modalRef}>
-                <h2>New Recipe</h2>
+                <h2>Edit Recipe</h2>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="title">Title: <span className="required">*</span></label>
                     <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} />
 
-                    <label htmlFor="image">Image: <span className="required">*</span></label>
+                    <label htmlFor="image">Image: </label>
                     <input type="file" id="image" name="image" accept=".jpeg, .jpg" onChange={handleImageChange} />
 
                     <label htmlFor="timeToCook">Time to Cook: <span className="required">*</span></label>
@@ -338,11 +350,11 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
                     <label htmlFor="videoLink">Video Link:</label>
                     <input type="text" id="videoLink" name="videoLink" value={formData.videoLink} onChange={handleChange} />
 
-                    <button type="submit" disabled={!isFormValid}>Create</button>
+                    <button type="submit" disabled={!isFormValid}>Submit Edit</button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default CreateRecipe;
+export default EditRecipe;

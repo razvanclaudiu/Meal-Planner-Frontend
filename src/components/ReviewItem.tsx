@@ -33,7 +33,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ review }) => {
                 {review.image && (
                     <img src={imageUrl} alt="Review" />
                 )}
-                <p>{recipeData?.title}</p>
+                <h2 className="review-name">{recipeData?.title}</h2>
                 <p><StarRating rating={review.rating} /></p>
 
         </div>

@@ -10,10 +10,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
 .modal-content {
-    background-color: white;
+    background-color: #222831;
     padding: 70px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* Box shadow for depth effect */
@@ -39,9 +40,9 @@
 .form-group input {
     width: 300px; /* Set the width to 100% */
     padding: 8px; /* Add some padding to the input */
-    border: 1px solid #ccc; /* Add a border to the input */
     border-radius: 5px; /* Add border radius */
     box-sizing: border-box; /* Include padding and border in the width */
+    background:  #393E46;
 }
 
 .register-submit {

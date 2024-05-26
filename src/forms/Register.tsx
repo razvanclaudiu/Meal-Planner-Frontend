@@ -179,7 +179,7 @@ function Register({ onClose, checkNotif }: RegisterProps) {
                 {error && <p className="error-message">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="username">Username:</label>
+                        <label htmlFor="username">Username: <span className="required">*</span></label>
                         <input
                             type="text"
                             id="username"
@@ -198,7 +198,7 @@ function Register({ onClose, checkNotif }: RegisterProps) {
                         required
                     />
                     <div className="form-group">
-                        <label htmlFor="password">Password:</label>
+                        <label htmlFor="password">Password: <span className="required">*</span></label>
                         <input
                             type="password"
                             id="password"
@@ -208,7 +208,7 @@ function Register({ onClose, checkNotif }: RegisterProps) {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="name">Name:</label>
+                        <label htmlFor="name">Name: <span className="required">*</span></label>
                         <input
                             type="text"
                             id="name"

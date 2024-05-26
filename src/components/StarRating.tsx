@@ -2,7 +2,7 @@ import React from 'react';
 import '../stylesheets/StarRating.css';
 
 interface StarRatingProps {
-    rating: number; // Define the type of the rating prop
+    rating: number;
 }
 
 const StarRating: React.FC<StarRatingProps> = ({ rating }) => {

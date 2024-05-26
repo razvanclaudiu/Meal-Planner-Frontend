@@ -13,12 +13,12 @@
     position: absolute;
     top: 40px;
     right: 30px;
-    border: 1px solid #e0e0e0;
     padding: 20px;
     margin: 50px auto;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+    background-color: #222831;
+    color: white;
 }
 
 .profile-header button {
@@ -26,7 +26,7 @@
     bottom: 10px;
     right: 20px;
     left: 20px;
-    background-color: #f69512;
+    background-color: #A91D3A;
     border: none;
     color: #000000;
     padding: 10px 20px;
@@ -41,18 +41,18 @@
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
-    border: 3px solid #f69512;
+    border: 3px solid #A91D3A;
 }
 
 .profile h2 {
     font-size: 1.5rem;
-    color: #333;
+    color: white;
     margin-bottom: 25px;
 }
 
-.profile p {
+.profile-reviews, profile-recipes p {
     font-size: 1rem;
-    color: #555;
+    color: #aaa;
     margin: 5px 0;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .log-out-button {
-    background-color: #f69512;
+    background-color: #A91D3A;
     border: none;
     color: #ffffff;
     padding: 10px 20px;
@@ -73,7 +73,7 @@
 }
 
 .log-out-button:hover {
-    background-color: #fc9008;
+    background-color: #C73659;
 
 }
 
@@ -83,7 +83,6 @@
     justify-content: center; /* Center the recipes horizontally */
     overflow-y: auto; /* Enable vertical scrolling */
     gap: 10px;
-    border: 1px solid #e0e0e0;
     padding: 20px;
     position: absolute;
     top: 40px;
@@ -94,7 +93,14 @@
     margin: 50px auto;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+    background-color: #222831;
+}
+
+.profile-recipes h2 {
+    font-size: 1.5rem;
+    color: #A91D3A;
+    margin-top: 4px;
+    margin-bottom: 0px;
 }
 
 .recipe-list-profile {
@@ -106,7 +112,6 @@
 
 .profile-reviews {
     gap: 20px; /* Gap between items */
-    border: 1px solid #e0e0e0;
     position: absolute;
     top: 440px;
     left: 140px;
@@ -116,7 +121,7 @@
     margin: 50px auto;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+    background-color: #222831;
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
@@ -135,14 +140,14 @@
 
 .section-title {
     font-size: 1.5rem;
-    color: #333;
+    color: white;
 }
 
 .recipe-item-profile {
     text-align: center;
     cursor: pointer;
-    background: white;
-    width: 200px;
+    background:  #222831;
+
     border: none;
 }
 
@@ -158,8 +163,8 @@
     right: -5px;
     width: calc(100% ); /* Adjust the width */
     height: calc(97% ); /* Adjust the height */
-    border-bottom: 7px solid #f69512; /* Yellow outline on bottom */
-    border-right: 7px solid #f69512; /* Yellow outline on right */
+    border-bottom: 7px solid #A91D3A; /* Yellow outline on bottom */
+    border-right: 7px solid #A91D3A; /* Yellow outline on right */
     border-radius: 10px;
 }
 
@@ -169,12 +174,13 @@
     border-radius: 10px 10px 10px 10px; /* Round the top corners */
 }
 
+
 .review-item {
     text-align: center;
     cursor: pointer;
-    background: white;
+    background:  #222831;
     width: 200px;
-    height: 270px;
+    height: 215px;
     margin-bottom: 20px;
     border: none;
     padding: 10px;
@@ -188,12 +194,12 @@
 .review-item:hover::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -35px;
     right: -5px;
     width: calc(100%);
-    height: calc(97%);
-    border-bottom: 7px solid #f69512;
-    border-right: 7px solid #f69512;
+    height: calc(113%);
+    border-bottom: 7px solid #A91D3A;
+    border-right: 7px solid #A91D3A;
     border-radius: 10px;
 }
 
@@ -201,13 +207,18 @@
     width: 175px;
     height: 175px;
     border-radius: 10px 10px 10px 10px; /* Round the top corners */
+    margin-bottom: -15px;
+}
+
+.review-item h2 {
+    color: #A91D3A;
+    margin-bottom: -30px;
 }
 
 .review-item-button {
     border: none;
-    background-color: white;
+    background-color: #222831;
 }
-
 
 .progress-bar {
     width: 100%;
@@ -219,6 +230,6 @@
 
 .progress {
     height: 100%;
-    background-color: #fc9008;
+    background-color: #C73659;
     transition: width 0.5s ease;
 }

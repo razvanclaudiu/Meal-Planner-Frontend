@@ -14,7 +14,8 @@
 }
 
 .create-modal-content {
-    background-color: white;
+    background-color: #222831;
+    color: white;
     width: 500px;
     height: 700px;
     padding: 70px;
@@ -32,35 +33,42 @@
     margin-bottom: 15px; /* Add some spacing between form groups */
     display: flex;
     flex-direction: column; /* Arrange input and label in a vertical fashion */
-    align-items: flex-start; /* Align components to the start of the container */
+    align-items: center; /* Align components to the start of the container */
     width: 100%; /* Set the width to 100% */
 }
 
-.create-modal-content form {
+.create-modal-content form{
     width: 100%; /* Set form width to 100% */
+
 }
 
 .create-modal-content form label {
     margin-bottom: 5px; /* Add some spacing between label and input */
+    display: flex;
+    flex-direction: row; /* Arrange input and label in a vertical fashion */
+    align-items: flex-start; /* Align components to the start of the container */
 }
 
 .create-modal-content form input{
     width: calc(100%); /* Set input width to 100% minus padding */
     padding: 8px; /* Add some padding to the input */
     margin-bottom: 15px; /* Add some spacing between form fields */
-    border: 1px solid #ccc; /* Add a border to the input */
     border-radius: 5px; /* Add border radius */
     box-sizing: border-box; /* Include padding and border in the width */
+    background-color:  #393E46;
+    color: white;
 }
 .create-modal-content form textarea {
     width: calc(100%); /* Set input width to 100% minus padding */
-    height: 100px; /* Set a fixed height */
+    height: 200px; /* Set a fixed height */
     padding: 8px; /* Add some padding to the input */
     margin-bottom: 15px; /* Add some spacing between form fields */
     border: 1px solid #ccc; /* Add a border to the input */
     border-radius: 5px; /* Add border radius */
     box-sizing: border-box; /* Include padding and border in the width */
     resize:none;
+    background-color:  #393E46;
+    color: white;
 }
 
 .create-modal-content form select {
@@ -70,20 +78,22 @@
     border: 1px solid #ccc; /* Add a border to the input */
     border-radius: 5px; /* Add border radius */
     box-sizing: border-box; /* Include padding and border in the width */
+    background-color:  #393E46;
+    color: white;
 }
 
 .create-modal-content form button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #f69512; /* Change button color to yellow */
+    background-color: #A91D3A; /* Change button color to yellow */
     color: black; /* Change text color to black */
     cursor: pointer;
     align-self: center; /* Center the button horizontally */
 }
 
 .create-modal-content form button:hover {
-    background-color: #fc9008; /* Darker yellow on hover */
+    background-color: #C73659; /* Darker yellow on hover */
 }
 
 .required {
@@ -91,25 +101,40 @@
     font-weight: bold;
 }
 
+.selector {
+    height: 200px;
+    font-size: 16px;
+
+}
+
 .selected-box {
-    border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 8px;
-    width: calc(100% - 16px); /* Adjust width to fit inside the select container */
-    max-height: 100px; /* Limit height to fit inside the container */
+    width: 100%;
+    max-height: 200px; /* Limit height to fit inside the container */
     overflow-y: auto; /* Enable vertical scrolling */
     margin-bottom: 15px;
+    color: black;
+
+
+}
+
+.selected-box button {
+    background-color: #A91D3A; /* Change button color to yellow */
+    color: black; /* Change text color to black */
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    display: flex;
+    align-items: flex-start;
+
 }
 
 .selected-item {
-    background-color: #f0f0f0; /* Light gray background */
-    padding: 5px;
-    border-radius: 3px;
-    margin-bottom: 5px;
-    cursor: pointer;
-}
-
-.selected-item:hover {
-    background-color: #e0e0e0; /* Darker gray on hover */
+    background-color:  #393E46;/* Light gray background */
+    padding: 10px;
+    color: white;
 }
 

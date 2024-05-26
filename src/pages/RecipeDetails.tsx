@@ -2,30 +2,36 @@ import React, { useEffect, useState } from 'react';
 import '../stylesheets/RecipeDetails.css';
 import Recipe from "../interface/RecipeInterface";
 import StarRating from '../components/StarRating';
-import image_not_found from "../images/image_not_found.png";
-import {useNavigate} from "react-router-dom";
+import image_not_found from "../assets/images/image_not_found.png";
+import { useNavigate } from "react-router-dom";
 import CreateReview from "../forms/CreateReview";
-import {fetchRecipeData} from "../api/recipeApi";
+import { fetchRecipeData } from "../api/recipeApi";
 import Reviews from "./Reviews";
-import {useRecipeContext} from "../context/RecipeProvider";
+import { useRecipeContext } from "../context/RecipeProvider";
 import Review from "../interface/ReviewInterface";
-import User from "../interface/UserInterface";
+import Quantity from "../interface/QuantityInterface";
+import Ingredient from "../interface/IngredientInterface";
+import EditRecipe from "../forms/EditRecipe";
+import EditReview from "../forms/EditReview";
 
 interface Props {
     recipe: Recipe;
-    checkNotif: (id : number) => void;
+    checkNotif: (id: number) => void;
 }
 
 const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
     const imageUrl = `http://localhost:8080/api/images/recipe/${recipe.image}`;
     const [categories, setCategories] = useState<string[]>([]);
-    const [ingredients, setIngredients] = useState<string[]>([]);
+    const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+    const [quantities, setQuantities] = useState<Quantity[]>([]);
     const [isOwner, setIsOwner] = useState<boolean>(false);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [hasReviewed, setHasReviewed] = useState<boolean>(false);
     const [showCreateReviewForm, setShowCreateReviewForm] = useState(false);
+    const [showEditRecipeForm, setShowEditRecipeForm] = useState(false);
     const [showReviewsPage, setShowReviewsPage] = useState(false);
-    const [reviewId, setReviewId] = useState<number>(0);
+    const [showEditReviewForm, setShowEditReviewForm] = useState(false);
+    const [review, setReview] = useState<Review>({} as Review);
     const navigate = useNavigate();
     const token = localStorage.getItem('accessToken'); // Retrieve the token from localStorage
 
@@ -35,6 +41,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
         // Fetch categories and ingredients
         fetchCategories();
         fetchIngredients();
+        fetchQuantities();
         fetchReviews();
         checkLoginStatus();
     }, [showCreateReviewForm]);
@@ -51,13 +58,23 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
 
     const fetchIngredients = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/recipes/${recipe.id}/ingredients`);
+            const response = await fetch(`http://localhost:8080/api/ingredients/recipe/${recipe.id}`);
             const data = await response.json();
             setIngredients(data);
         } catch (error) {
             console.error("Error fetching ingredients:", error);
         }
     };
+
+    const fetchQuantities = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/quantities/recipe/${recipe.id}`);
+            const data = await response.json();
+            setQuantities(data);
+        } catch (error) {
+            console.error("Error fetching quantities:", error);
+        }
+    }
 
     const fetchReviews = async () => {
         try {
@@ -66,7 +83,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
             data.forEach((review: Review) => {
                 if (review.user_id === parseInt(localStorage.getItem('userId') || '0', 10)) {
                     setHasReviewed(true);
-                    setReviewId(review.id);
+                    setReview(review);
                 }
             });
         } catch (error) {
@@ -75,7 +92,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
     }
 
     const handleEditButtonClick = (id: number) => {
-        // Implement edit recipe functionality
+        setShowEditRecipeForm(true);
     };
 
     const handleDeleteButtonClick = async (id: number) => {
@@ -113,7 +130,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
     };
 
     const handleEditReviewButtonClick = () => {
-        // Implement edit review functionality
+        setShowEditReviewForm(true);
     };
 
     const handleDeleteReviewButtonClick = async () => {
@@ -123,7 +140,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/api/reviews/${reviewId}`, {
+            const response = await fetch(`http://localhost:8080/api/reviews/${review.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +150,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
 
             if (response.ok) {
                 setHasReviewed(false);
-                setReviewId(0);
+                setReview({} as Review);
                 fetchRecipeData(setRecipes);
             } else {
                 console.error("Failed to delete the review");
@@ -155,12 +172,31 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
     const handleModalClose = () => {
         setShowCreateReviewForm(false);
         setShowReviewsPage(false);
+        if(showEditReviewForm)
+        {
+            setShowEditReviewForm(false);
+            fetchReviews();
+        }
+
+        if(showEditRecipeForm) {
+            setShowEditRecipeForm(false);
+            window.location.reload();
+        }
+
     };
+
+    const getIngredientQuantity = (ingredient: number) => {
+        const quantity = quantities.find(q => q.ingredientId === ingredient);
+        return quantity ? quantity.quantity : '';
+    };
+
 
     return (
         <>
-            {showCreateReviewForm && <CreateReview recipeId={recipe.id} onClose={handleModalClose} checkNotif={checkNotif}/>}
+            {showEditRecipeForm && <EditRecipe recipe={recipe} onClose={handleModalClose} />}
+            {showCreateReviewForm && <CreateReview recipeId={recipe.id} onClose={handleModalClose} checkNotif={checkNotif} />}
             {showReviewsPage && <Reviews recipeId={recipe.id} onClose={handleModalClose} />}
+            {showEditReviewForm && <EditReview  review={review} onClose={handleModalClose}  />}
             <div className="recipe-details-container">
                 <img src={imageUrl} alt={recipe.title} className="recipe-image" onError={(e) => {
                     e.currentTarget.src = image_not_found; // Set a placeholder image
@@ -186,7 +222,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
                     )}
                     <p style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
                         {categories.map((category, index) => (
-                            <div key={index} style={{ background: '#f69512', borderRadius: '5px', padding: '5px', textAlign: 'center' }}>
+                            <div key={index} style={{ background: ' #393E46', borderRadius: '5px', padding: '5px', textAlign: 'center' } }>
                                 {category}
                             </div>
                         ))}
@@ -217,14 +253,18 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
             </div>
             <div className="recipe-container-2">
                 <h2>Method</h2>
-                <p style={{ whiteSpace: 'pre-wrap', textAlign: 'left'}}>{recipe.method}</p>
+                <p style={{ whiteSpace: 'pre-wrap', textAlign: 'left' }}>{recipe.method}</p>
             </div>
 
             <div className="recipe-container-3">
                 <h2><strong>Ingredients</strong></h2>
-                <p> {ingredients.map((ingredient, index) => (
-                    <span key={index}>{ingredient}</span>
-                ))}</p>
+                <ul >
+                    {ingredients.map((ingredient, index) => (
+                        <li key={index}>
+                            {getIngredientQuantity(ingredient.id)} {ingredient.name}
+                        </li>
+                    ))}
+                </ul>
             </div>
         </>
     );
