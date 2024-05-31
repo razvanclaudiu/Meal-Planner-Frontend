@@ -44,7 +44,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ review }) => {
             <div className="review-body">
                 <h2>Review Description</h2>
                 {userData && <p className="review-author">By {userData.username}</p>}
-                <p>{review.description}</p>
+                <p style={{ whiteSpace: 'pre-wrap', textAlign: 'left' }}>{review.description}</p>
             </div>
         </div>
     );

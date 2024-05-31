@@ -10,10 +10,11 @@ import ReviewItem from "../components/ReviewItem";
 
 interface ProfileProps {
     user: User | null; // Define prop for user data
+    updateUser: () => void; // Function to update user data
     setIsLoggedIn: (isLoggedIn: boolean) => void; // Function to set isLoggedIn state
 }
 
-const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
+const Profile: React.FC<ProfileProps> = ({ user, updateUser,setIsLoggedIn }) => {
     const navigate = useNavigate(); // Get the navigate function
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [reviews, setReviews] = useState<Review[]>([]);
@@ -76,7 +77,7 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
         localStorage.removeItem('userImage');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('userId');
-        localStorage.removeItem('semaphore');
+        updateUser();
         setIsLoggedIn(false); // Set isLoggedIn to false
         navigate('/home'); // Redirect to home
     };
@@ -148,7 +149,7 @@ const Profile: React.FC<ProfileProps> = ({ user,setIsLoggedIn }) => {
                             </button>
                         ))
                     ) : (
-                        <p>No recipe yet</p>
+                        <p style={{color: '#aaa'}}>No recipes yet</p>
                     )}
                     </div>
 

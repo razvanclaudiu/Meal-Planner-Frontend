@@ -230,35 +230,32 @@ body {
 }
 
 .filter-section {
-  position: relative;
+  position: absolute;
+  top: 20px;
+  left: 63%;
+  width: 160px;
   display: flex;
+  flex-direction: row;
   text-align: center;
-  background: white;
+  background: rgb(23, 80, 166,0);
+  font-size: 14px;
 }
 
 .dropdown1 {
-  position: absolute;
-  top: -40px; /* Position dropdown below the header */
-  right: 600px; /* Align dropdown with the left edge of the container */
-  z-index: 1001; /* Ensure the dropdown appears above other content */
-  width: 120px;
+  z-index: 2; /* Ensure the dropdown appears above other content */
   text-align: center;
   color: #aaa;
+  width: 80px;
 }
 
 .dropdown2 {
-  position: absolute;
-  top: -40px; /* Position dropdown below the header */
-  right: 500px; /* Align dropdown with the left edge of the container */
-  z-index: 1001; /* Ensure the dropdown appears above other content */
-  width: 120px;
+  z-index: 2; /* Ensure the dropdown appears above other content */
   text-align: center;
   color: #aaa;
+  width: 80px;
 }
 
 .dropdown-header {
-  text-align: center;
-  margin-bottom: 19px;
   cursor: default;
 }
 
@@ -276,7 +273,7 @@ body {
 
 .clear-filter-button {
   position: absolute;
-  right: 380px;
+  right: 370px;
   bottom: 10px;
   font-size: 16px; /* Decreased font size */
   border-radius: 20px; /* Added border radius for rounded corners */
@@ -300,9 +297,27 @@ body {
   width: 90px;
   background: #222831;
   color: #aaa;
+  margin-top: 5px;
 }
 
 .App-link {
   color: #61dafb;
 }
+
+::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+}
+
+/* Scrollbar Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #aaa; /* Color of the scrollbar handle */
+  border-radius: 6px; /* Rounded corners */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker color on hover */
+}
+
+
 

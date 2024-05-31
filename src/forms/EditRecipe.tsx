@@ -33,6 +33,8 @@ const EditRecipe: React.FC<EditProps> = ({ recipe, onClose }) => {
     const [selectedCategories, setSelectedCategories] = useState<number[]>(recipe.categories_id);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [categoryLimitExceeded, setCategoryLimitExceeded] = useState(false); // Add state for category limit
+    const [ingredientSearch, setIngredientSearch] = useState(''); // Ingredient search state
+    const [categorySearch, setCategorySearch] = useState(''); // Category search state
 
     const { setRecipes } = useRecipeContext();
 
@@ -232,39 +234,49 @@ const EditRecipe: React.FC<EditProps> = ({ recipe, onClose }) => {
                         reader.readAsDataURL(selectedFile); // Read file as data URL
                     }
 
-                    // Submit quantities
-                    const quantityPromises = selectedIngredients.map(ingredientId => {
-                        const quantity = ingredientQuantities[ingredientId];
-                        return fetch('http://localhost:8080/api/quantities', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            },
-                            body: JSON.stringify({
-                                id: 0,
-                                recipeId: newRecipeId,
-                                ingredientId: ingredientId,
-                                quantity: quantity
-                            })
-                        });
-                    });
-
-                    await Promise.all(quantityPromises);
-
-                    const url = `http://localhost:8080/api/users/username/${localStorage.getItem("username")}`;
-
-                    try {
-                        const response = await fetch(url, {});
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
+                    const responseD = await fetch(`http://localhost:8080/api/quantities/recipe/${recipe.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
                         }
-                        const userData = await response.json();
-                        // Save data in local storage and close modal
-                        localStorage.setItem('user', JSON.stringify(userData));
-                    }
-                    catch (error) {
-                        console.error('Error fetching user data:', error);
+                    });
+                    if(responseD.ok) {
+                        // Submit quantities
+                        const quantityPromises = selectedIngredients.map(ingredientId => {
+                            const quantity = ingredientQuantities[ingredientId];
+                            return fetch('http://localhost:8080/api/quantities', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify({
+                                    id: 0,
+                                    recipeId: newRecipeId,
+                                    ingredientId: ingredientId,
+                                    quantity: quantity
+                                })
+                            });
+                        });
+
+
+                        await Promise.all(quantityPromises);
+
+                        const url = `http://localhost:8080/api/users/username/${localStorage.getItem("username")}`;
+
+                        try {
+                            const response = await fetch(url, {});
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            const userData = await response.json();
+                            // Save data in local storage and close modal
+                            localStorage.setItem('user', JSON.stringify(userData));
+                        }
+                        catch (error) {
+                            console.error('Error fetching user data:', error);
+                        }
                     }
                 } else {
                     console.error('Failed to create recipe:', response.statusText);
@@ -278,6 +290,22 @@ const EditRecipe: React.FC<EditProps> = ({ recipe, onClose }) => {
         fetchRecipeData(setRecipes);
         onClose();
     };
+
+    const handleIngredientSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIngredientSearch(e.target.value);
+    };
+
+    const handleCategorySearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCategorySearch(e.target.value);
+    };
+
+    const filteredIngredients = ingredients.filter(ingredient =>
+        ingredient.name.toLowerCase().includes(ingredientSearch.toLowerCase())
+    );
+
+    const filteredCategories = categories.filter(category =>
+        category.name.toLowerCase().includes(categorySearch.toLowerCase())
+    );
 
     return (
         <div className="create-modal">
@@ -303,9 +331,10 @@ const EditRecipe: React.FC<EditProps> = ({ recipe, onClose }) => {
                     ></textarea>
 
                     <label htmlFor="ingredients_id">Ingredients: <span className="required">*</span></label>
+                    <input type="text" placeholder="Search ingredients" value={ingredientSearch} onChange={handleIngredientSearch} /> {/* Ingredient search input */}
                     <div className="select-container">
                         <select className="selector" id="ingredients_id" name="ingredients_id" multiple value={selectedIngredients.map(String)} onChange={(e) => handleSelectChange(e, setSelectedIngredients, true)}>
-                            {ingredients.map(ingredient => (
+                            {filteredIngredients.map(ingredient => (
                                 !selectedIngredients.includes(ingredient.id) && (
                                     <option key={ingredient.id} value={ingredient.id}>{ingredient.name}</option>
                                 )
@@ -328,9 +357,10 @@ const EditRecipe: React.FC<EditProps> = ({ recipe, onClose }) => {
                     </div>
 
                     <label htmlFor="categories_id">Categories: <span className="required">*</span></label>
+                    <input type="text" placeholder="Search categories" value={categorySearch} onChange={handleCategorySearch} /> {/* Category search input */}
                     <div className="select-container">
                         <select className="selector" id="categories_id" name="categories_id" multiple value={selectedCategories.map(String)} onChange={(e) => handleSelectChange(e, setSelectedCategories, false)}>
-                            {categories.map(category => (
+                            {filteredCategories.map(category => (
                                 !selectedCategories.includes(category.id) && (
                                     <option key={category.id} value={category.id}>{category.name}</option>
                                 )

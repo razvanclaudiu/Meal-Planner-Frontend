@@ -6,10 +6,11 @@ import {useRecipeContext} from "../context/RecipeProvider";
 
 interface EditReviewProps {
     review: Review; // Recipe ID passed as a prop
+    updateUser: () => void;
     onClose: () => void;
 }
 
-const EditReview: React.FC<EditReviewProps> = ({ review, onClose }) => {
+const EditReview: React.FC<EditReviewProps> = ({ review,updateUser, onClose }) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     const { setRecipes } = useRecipeContext();
@@ -141,6 +142,7 @@ const EditReview: React.FC<EditReviewProps> = ({ review, onClose }) => {
                         const userData = await response.json();
                         // Save data in local storage and close modal
                         localStorage.setItem('user', JSON.stringify(userData));
+                        updateUser();
                         fetchRecipeData(setRecipes);
                     }
                     catch (error) {
@@ -155,14 +157,13 @@ const EditReview: React.FC<EditReviewProps> = ({ review, onClose }) => {
         } else {
             console.error('Token not found in localStorage!');
         }
-        localStorage.setItem("semaphore", String(Math.random()));
         onClose();
     };
 
     return (
         <div className="create-review-modal">
             <div className="create-review-modal-content" ref={modalRef}>
-                <h2>New Review</h2>
+                <h2>Edit Review</h2>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="description">Description: <span className="required">*</span></label>
                     <textarea
@@ -196,7 +197,7 @@ const EditReview: React.FC<EditReviewProps> = ({ review, onClose }) => {
                         onChange={handleImageChange}
                     />
 
-                    <button type="submit" disabled={!isFormValid}>Post</button>
+                    <button type="submit" disabled={!isFormValid}>Submit Edit</button>
                 </form>
             </div>
         </div>

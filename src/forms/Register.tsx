@@ -5,10 +5,11 @@ import {fetchRecipeData} from "../api/recipeApi";
 
 interface RegisterProps {
     onClose: () => void;
+    updateUser: () => void;
     checkNotif: (id: number) => void;
 }
 
-function Register({ onClose, checkNotif }: RegisterProps) {
+function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
     const modalRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState({
         username: '',
@@ -113,8 +114,7 @@ function Register({ onClose, checkNotif }: RegisterProps) {
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('username', username);
             localStorage.setItem('userId', userData.id);
-            localStorage.setItem("semaphore", Math.random().toString());
-
+            updateUser();
             checkNotif(userData.id);
 
             // Image upload if selected
@@ -173,8 +173,8 @@ function Register({ onClose, checkNotif }: RegisterProps) {
 
 
     return (
-        <div className="modal">
-            <div className="modal-content" ref={modalRef}>
+        <div className="register-modal">
+            <div className="register-modal-content" ref={modalRef}>
                 <h2>Register</h2>
                 {error && <p className="error-message">{error}</p>}
                 <form onSubmit={handleSubmit}>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom'; // Import Navigate and useNavigate
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import Navigate and useNavigate
 import UserComponent from "../components/UserComponent";
 import User from "../interface/UserInterface";
 import '../stylesheets/Leaderboard.css';

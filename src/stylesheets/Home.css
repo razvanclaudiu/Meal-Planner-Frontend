@@ -31,7 +31,7 @@
 .drag-flavor {
     position: absolute;
     top: 45%;
-    left: 18%;
+    left: 16%;
     color:  #aaa;
 
 }
@@ -46,6 +46,6 @@
 .secret-flavor {
     position: absolute;
     top: 45%;
-    right: 20.1%;
+    right: 18.9%;
     color:  #aaa;
 }

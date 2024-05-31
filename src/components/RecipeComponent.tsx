@@ -19,7 +19,7 @@ const RecipeComponent: React.FC<Props> = ({ recipe }) => {
                     e.currentTarget.src = image_not_found;
                 }}
             />
-            <h2>{recipe.title}</h2>
+            <p>{recipe.title}</p>
         </div>
     );
 }

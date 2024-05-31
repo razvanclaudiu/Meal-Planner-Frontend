@@ -5,10 +5,11 @@ import { fetchRecipeData } from "../api/recipeApi";
 
 interface CreateProps {
     onClose: () => void;
+    updateUser: () => void;
     checkNotif: (id: number) => void;
 }
 
-const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
+const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState<Recipe>({
         id: 0,
@@ -32,6 +33,9 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
     const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [categoryLimitExceeded, setCategoryLimitExceeded] = useState(false); // Add state for category limit
+
+    const [ingredientSearch, setIngredientSearch] = useState(''); // Ingredient search state
+    const [categorySearch, setCategorySearch] = useState(''); // Category search state
 
     useEffect(() => {
         const fetchData = async () => {
@@ -164,6 +168,14 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
         }));
     };
 
+    const handleIngredientSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIngredientSearch(e.target.value);
+    };
+
+    const handleCategorySearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCategorySearch(e.target.value);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -250,6 +262,7 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
                         const userData = await response.json();
                         // Save data in local storage and close modal
                         localStorage.setItem('user', JSON.stringify(userData));
+                        updateUser();
                         checkNotif(userData.id);
                     }
                     catch (error) {
@@ -266,6 +279,14 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
         }
         onClose();
     };
+
+    const filteredIngredients = ingredients.filter(ingredient =>
+        ingredient.name.toLowerCase().includes(ingredientSearch.toLowerCase())
+    );
+
+    const filteredCategories = categories.filter(category =>
+        category.name.toLowerCase().includes(categorySearch.toLowerCase())
+    );
 
     return (
         <div className="create-modal">
@@ -291,9 +312,10 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
                     ></textarea>
 
                     <label htmlFor="ingredients_id">Ingredients: <span className="required">*</span></label>
+                    <input type="text" placeholder="Search ingredients" value={ingredientSearch} onChange={handleIngredientSearch} /> {/* Ingredient search input */}
                     <div className="select-container">
                         <select className="selector" id="ingredients_id" name="ingredients_id" multiple value={selectedIngredients.map(String)} onChange={(e) => handleSelectChange(e, setSelectedIngredients, true)}>
-                            {ingredients.map(ingredient => (
+                            {filteredIngredients.map(ingredient => (
                                 !selectedIngredients.includes(ingredient.id) && (
                                     <option key={ingredient.id} value={ingredient.id}>{ingredient.name}</option>
                                 )
@@ -316,9 +338,10 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, checkNotif }) => {
                     </div>
 
                     <label htmlFor="categories_id">Categories: <span className="required">*</span></label>
+                    <input type="text" placeholder="Search categories" value={categorySearch} onChange={handleCategorySearch} /> {/* Category search input */}
                     <div className="select-container">
                         <select className="selector" id="categories_id" name="categories_id" multiple value={selectedCategories.map(String)} onChange={(e) => handleSelectChange(e, setSelectedCategories, false)}>
-                            {categories.map(category => (
+                            {filteredCategories.map(category => (
                                 !selectedCategories.includes(category.id) && (
                                     <option key={category.id} value={category.id}>{category.name}</option>
                                 )

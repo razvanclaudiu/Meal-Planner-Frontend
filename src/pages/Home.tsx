@@ -75,9 +75,9 @@ const Home: React.FC = () => {
     return (
         <div>
             <h2 className="drag-images">Join the community</h2>
-            <p className="drag-flavor">Drag the images to see the magic happen!</p>
+            <p className="drag-flavor">Drag the images to see some of our best rated recipes!</p>
             <h2 className="secret-message">Let's munch!</h2>
-            <p className="secret-flavor">Register an account</p>
+            <p className="secret-flavor">Register an account today!</p>
             <div id="image-track" className="track" ref={trackRef}>
                 <img className="track-image" src={track_image1} alt="track" draggable="false" />
                 <img className="track-image" src={track_image2} alt="track" draggable="false" />

@@ -52,6 +52,7 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [awards, setAwards] = useState<Award[]>([]);
     const [user, setUser] = useState<User | null>(null);
+    const [showNotifications, setShowNotifications] = useState(false);
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [notificationSound] = useState(new Audio(notificationSoundFile));
     const [categories, setCategories] = useState<Category[]>([]);
@@ -74,10 +75,14 @@ function App() {
         fetchRecipeData(setRecipes);
     }, [showCreateRecipeForm]);
 
-    useEffect(() => {
+    const updateUser = () => {
         const savedUser = localStorage.getItem('user');
         setUser(savedUser ? JSON.parse(savedUser) : null);
-    }, [localStorage.getItem('semaphore')]);
+    };
+
+    useEffect(() => {
+        updateUser()
+    }, []);
 
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
@@ -143,13 +148,21 @@ function App() {
             const response = await fetch(`http://localhost:8080/api/notifications/user/${id}`);
             if (!response.ok) throw new Error('Failed to fetch notifications');
             const data = await response.json();
-            setNotifications(data);
-            data.forEach(async (notification: Notification, index: number) => {
-                setTimeout(async () => {
-                    await updateNotificationShown(notification.id, { ...notification, notificationShown: true });
-                    playNotificationSound();
-                }, 4000 * index);
-            });
+            setTimeout(() => {
+                setNotifications(data);
+                setShowNotifications(true);
+                setTimeout(() => {
+                    data.forEach(async (notification: Notification, index: number) => {
+                        setTimeout(async () => {
+                            await updateNotificationShown(notification.id, {...notification, notificationShown: true});
+                            playNotificationSound();
+                        }, 4000 * index);
+                    });
+                }, 500);
+                setTimeout(() => {
+                    setShowNotifications(false);
+                }, 4000 * data.length);
+            }, 1000);
         } catch (error) {
             console.error('Error fetching notifications:', error);
         }
@@ -370,11 +383,11 @@ function App() {
                 )}
             </div>
 
-            {showRegisterModal && <Register onClose={handleModalClose} checkNotif={checkNotif} />}
-            {showLoginModal && <Login onClose={handleModalClose} checkNotif={checkNotif} />}
-            {showCreateRecipeForm && <CreateRecipe onClose={handleModalClose} checkNotif={checkNotif} />}
+            {showRegisterModal && <Register onClose={handleModalClose} updateUser={updateUser} checkNotif={checkNotif} />}
+            {showLoginModal && <Login onClose={handleModalClose} updateUser={updateUser} checkNotif={checkNotif} />}
+            {showCreateRecipeForm && <CreateRecipe onClose={handleModalClose} updateUser={updateUser} checkNotif={checkNotif} />}
 
-            {notifications.slice(0, notifications.length).map((notification, index) => (
+            {showNotifications && notifications.slice(0, notifications.length).map((notification, index) => (
                 <div key={index} className="notifications" style={{ animationDelay: `${index * 4}s` }}>
                     <div className="notification">
                         <strong>Award Earned!</strong>
@@ -400,10 +413,10 @@ function App() {
                         <Route path="/awards" element={<Awards awards={awards} user={user} />} />
                         <Route path="/leaderboard" element={<Leaderboard users={users}/>} />
                         {users.map((user: User) => (
-                            <Route key={user.id} path={`/profile/${user.id}`} element={<Profile user={user} setIsLoggedIn={setIsLoggedIn} />} />
+                            <Route key={user.id} path={`/profile/${user.id}`} element={<Profile user={user} updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
                         ))}
                         {recipes.map((recipe: Recipe) => (
-                            <Route key={recipe.id} path={`/recipe/${recipe.id}`} element={<RecipeDetails recipe={recipe} checkNotif={checkNotif} />} />
+                            <Route key={recipe.id} path={`/recipe/${recipe.id}`} element={<RecipeDetails recipe={recipe} updateUser={updateUser}  checkNotif={checkNotif} />} />
                         ))}
                     </Routes>
                 </div>

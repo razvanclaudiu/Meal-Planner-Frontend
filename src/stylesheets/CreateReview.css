@@ -16,7 +16,7 @@
 .create-review-modal-content {
     background-color: #222831;
     width: 500px;
-    height: 460px;
+    height: 550px;
     padding: 70px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* Box shadow for depth effect */
@@ -56,7 +56,7 @@
 }
 .create-review-modal-content form textarea {
     width: calc(100%); /* Set input width to 100% minus padding */
-    height: 110px; /* Set a fixed height */
+    height: 200px; /* Set a fixed height */
     padding: 8px; /* Add some padding to the input */
     margin-bottom: 15px; /* Add some spacing between form fields */
     border: 1px solid #ccc; /* Add a border to the input */

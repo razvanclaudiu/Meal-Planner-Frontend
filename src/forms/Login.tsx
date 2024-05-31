@@ -3,10 +3,11 @@ import '../stylesheets/Login.css';
 import User from '../interface/UserInterface';
 interface LoginProps {
     onClose: () => void; // Specify the type for onClose prop
+    updateUser: () => void;
     checkNotif: (id : number) => void;
 }
 
-function Login({ onClose, checkNotif }: LoginProps) {
+function Login({ onClose, updateUser, checkNotif }: LoginProps) {
     const modalRef = useRef<HTMLDivElement>(null); // Ref for the modal content
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -75,7 +76,7 @@ function Login({ onClose, checkNotif }: LoginProps) {
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('username', username);
             localStorage.setItem("userId", userData.id);
-            localStorage.setItem("semaphore", Math.random().toString());
+            updateUser();
             checkNotif(userData.id);
             onClose(); // Close the modal
         } catch (error) {

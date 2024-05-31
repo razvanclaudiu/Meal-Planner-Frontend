@@ -7,10 +7,11 @@ import {useRecipeContext} from "../context/RecipeProvider";
 interface CreateReviewProps {
     recipeId: number; // Recipe ID passed as a prop
     onClose: () => void;
+    updateUser: () => void;
     checkNotif: (id : number) => void;
 }
 
-const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose, checkNotif }) => {
+const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose,updateUser, checkNotif }) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     const { setRecipes } = useRecipeContext();
@@ -168,6 +169,7 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose, checkNot
                         const userData = await response.json();
                         // Save data in local storage and close modal
                         localStorage.setItem('user', JSON.stringify(userData));
+                        updateUser();
                         checkNotif(userData.id);
                         fetchRecipeData(setRecipes);
                     }
@@ -183,7 +185,6 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose, checkNot
         } else {
             console.error('Token not found in localStorage!');
         }
-        localStorage.setItem("semaphore", String(Math.random()));
         onClose();
     };
 

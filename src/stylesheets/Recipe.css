@@ -20,6 +20,7 @@
     width: 320px;
     border: none;
     border-radius: 10px;
+    align-items: flex-start;
 }
 
 .recipe {
@@ -30,7 +31,6 @@
     width: 275px; /* Make the image fill the container */
     height: 275px; /* Set a fixed height */
     border-radius: 10px 10px 10px 10px; /* Round the top corners */
-    margin-top: 10px;
 }
 
 .recipe-item:hover {
@@ -50,9 +50,10 @@
     border-radius: 10px;
 }
 
-.recipe-item h2 {
+.recipe-item p {
     color: #A91D3A;
     margin: 10px 0;
+    font-size: 24px;
 }
 
 

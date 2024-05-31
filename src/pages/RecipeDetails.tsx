@@ -16,10 +16,11 @@ import EditReview from "../forms/EditReview";
 
 interface Props {
     recipe: Recipe;
+    updateUser : () => void;
     checkNotif: (id: number) => void;
 }
 
-const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
+const RecipeDetails: React.FC<Props> = ({ recipe,updateUser, checkNotif }) => {
     const imageUrl = `http://localhost:8080/api/images/recipe/${recipe.image}`;
     const [categories, setCategories] = useState<string[]>([]);
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -194,9 +195,9 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
     return (
         <>
             {showEditRecipeForm && <EditRecipe recipe={recipe} onClose={handleModalClose} />}
-            {showCreateReviewForm && <CreateReview recipeId={recipe.id} onClose={handleModalClose} checkNotif={checkNotif} />}
+            {showCreateReviewForm && <CreateReview recipeId={recipe.id} updateUser={updateUser} onClose={handleModalClose} checkNotif={checkNotif} />}
             {showReviewsPage && <Reviews recipeId={recipe.id} onClose={handleModalClose} />}
-            {showEditReviewForm && <EditReview  review={review} onClose={handleModalClose}  />}
+            {showEditReviewForm && <EditReview  review={review} updateUser={updateUser} onClose={handleModalClose}  />}
             <div className="recipe-details-container">
                 <img src={imageUrl} alt={recipe.title} className="recipe-image" onError={(e) => {
                     e.currentTarget.src = image_not_found; // Set a placeholder image
@@ -261,7 +262,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe, checkNotif }) => {
                 <ul >
                     {ingredients.map((ingredient, index) => (
                         <li key={index}>
-                            {getIngredientQuantity(ingredient.id)} {ingredient.name}
+                            {ingredient.name} - {getIngredientQuantity(ingredient.id)}
                         </li>
                     ))}
                 </ul>

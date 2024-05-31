@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import cook_book from '../assets/images/cook_book.png';
 import welcome_aboard_uncolored from '../assets/images/welcome_aboard_uncolored.png';
 import welcome_aboard from '../assets/images/welcome_aboard.png';
