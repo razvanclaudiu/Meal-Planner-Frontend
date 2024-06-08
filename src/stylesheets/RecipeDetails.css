@@ -214,3 +214,16 @@
 .recipe-description {
     clear: both; /* Ensure the description is below the floated image */
 }
+
+.facebook-share-button{
+}
+
+.whatsapp-share-button{
+    align-self:  flex-end;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 84px;
+}

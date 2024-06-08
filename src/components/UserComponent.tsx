@@ -1,6 +1,7 @@
 import React from 'react';
 import User from "../interface/UserInterface";
 import '../stylesheets/Leaderboard.css';
+import user_icon from "../assets/images/user_icon.png";
 
 interface UserProps {
     user: User;
@@ -11,7 +12,8 @@ const UserComponent: React.FC<UserProps> = ({ user }) => {
 
     return (
         <div className="user-container">
-            <img src={imageUrl} alt="User" className="user-image" />
+            <img src={imageUrl} alt="User" className="user-image"  onError={(e) => {
+                e.currentTarget.src = user_icon; }}/>
                 <div className="user-details">
                     <p className="user-component-username">{user.username}</p>
                     <p className="user-component-title">{user.title}</p>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../stylesheets/Login.css';
 import User from '../interface/UserInterface';
+import GoogleLoginButton from "../components/GoogleLoginButton";
 interface LoginProps {
     onClose: () => void; // Specify the type for onClose prop
     updateUser: () => void;
@@ -112,6 +113,8 @@ function Login({ onClose, updateUser, checkNotif }: LoginProps) {
                     </div>
                     <button type="submit" className="log-in-submit">Log In</button>
                 </form>
+                <div className="separator"></div>
+                <p><GoogleLoginButton onClose={onClose} updateUser={updateUser} checkNotif={checkNotif}/></p>
             </div>
         </div>
     );

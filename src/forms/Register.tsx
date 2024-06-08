@@ -81,6 +81,7 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
 
             // Login request
             const { username, password } = formData;
+
             const loginResponse = await fetch('http://localhost:8080/api/auth/login', {
                 method: 'POST',
                 headers: {
@@ -95,29 +96,6 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
 
             const { accessToken } = await loginResponse.json();
 
-            // Fetch user data
-            const userResponse = await fetch(`http://localhost:8080/api/users/username/${username}`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-
-            if (!userResponse.ok) {
-                throw new Error('Failed to fetch user data');
-            }
-
-            const userData = await userResponse.json();
-
-            // Save data in local storage
-            localStorage.setItem('userImage', userData.image);
-            localStorage.setItem('user', JSON.stringify(userData));
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('username', username);
-            localStorage.setItem('userId', userData.id);
-            updateUser();
-            checkNotif(userData.id);
-
-            // Image upload if selected
             if (selectedFile) {
                 const reader = new FileReader();
                 reader.onloadend = async () => {
@@ -135,7 +113,7 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
                                 'Authorization': `Bearer ${accessToken}`,
                             },
                             body: JSON.stringify({
-                                id: userData.username,
+                                id: username,
                                 imageData: imageData,
                             }),
                         });
@@ -152,6 +130,27 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
 
                 reader.readAsDataURL(selectedFile);
             }
+
+            // Fetch user data
+            const userResponse = await fetch(`http://localhost:8080/api/users/username/${username}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            if (!userResponse.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+
+            const userData = await userResponse.json();
+            // Save data in local storage
+            localStorage.setItem('userImage', userData.image);
+            localStorage.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('username', username);
+            localStorage.setItem('userId', userData.id);
+            updateUser();
+            checkNotif(userData.id);
 
             // Close the modal on successful registration
             onClose();

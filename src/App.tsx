@@ -8,7 +8,7 @@ import Login from './forms/Login'; // Import the Login component
 import RecipeDetails from './pages/RecipeDetails'; // Import RecipeDetails component
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom'; // Import Routes and Route from react-router-dom
 import yellow_chef_hat from './assets/images/yellow_chef_hat.png';
-import image_not_found from "./assets/images/image_not_found.png"; // Import image
+import user_icon from './assets/images/user_icon.png';
 import Recipe from "./interface/RecipeInterface";
 import Profile from "./pages/Profile";
 import CreateRecipe from "./forms/CreateRecipe";
@@ -69,7 +69,7 @@ function App() {
 
     useEffect(() => {
         fetchUserData(setUsers);
-    },[showRegisterModal]);
+    },[showRegisterModal, showLoginModal]);
 
     useEffect(() => {
         fetchRecipeData(setRecipes);
@@ -371,7 +371,7 @@ function App() {
                         </button>
                         <button className="profile-button" onClick={() => handleButtonClick(`/profile/${localStorage.getItem("userId")}`)}>
                             <img src={`http://localhost:8080/api/images/user/${localStorage.getItem('userImage')}`} alt="Profile" onError={(e) => {
-                                e.currentTarget.src = image_not_found;
+                                e.currentTarget.src = user_icon;
                             }} />
                         </button>
                     </>

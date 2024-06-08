@@ -4,7 +4,7 @@ import User from '../interface/UserInterface'; // Import User interface
 import '../stylesheets/Profile.css';
 import Recipe from "../interface/RecipeInterface";
 import RecipeComponent from "../components/RecipeComponent";
-import image_not_found from "../assets/images/image_not_found.png";
+import user_icon from '../assets/images/user_icon.png';
 import Review from "../interface/ReviewInterface";
 import ReviewItem from "../components/ReviewItem";
 
@@ -104,7 +104,7 @@ const Profile: React.FC<ProfileProps> = ({ user, updateUser,setIsLoggedIn }) => 
                 <h2>{name}</h2>
                 <div>
                     <img src={`http://localhost:8080/api/images/user/${user.image}`} alt="Profile" onError={(e) => {
-                        e.currentTarget.src = image_not_found; }}/>
+                        e.currentTarget.src = user_icon; }}/>
                 </div>
                 <div className="separator"></div>
                 <div>

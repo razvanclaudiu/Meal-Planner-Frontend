@@ -13,6 +13,7 @@ import Quantity from "../interface/QuantityInterface";
 import Ingredient from "../interface/IngredientInterface";
 import EditRecipe from "../forms/EditRecipe";
 import EditReview from "../forms/EditReview";
+import {FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon} from "react-share";
 
 interface Props {
     recipe: Recipe;
@@ -191,6 +192,10 @@ const RecipeDetails: React.FC<Props> = ({ recipe,updateUser, checkNotif }) => {
         return quantity ? quantity.quantity : '';
     };
 
+    const url = `https://6986-188-27-132-209.ngrok-free.app/recipe/${recipe.id}`;
+    const title = "Check out this recipe from Munchie!";
+    const message = `${title}\n${url}`; // Manually concatenating title and URL with a newline character
+
 
     return (
         <>
@@ -206,11 +211,19 @@ const RecipeDetails: React.FC<Props> = ({ recipe,updateUser, checkNotif }) => {
                     <h2 className="recipe-title">{recipe.title}</h2>
                     <p> <StarRating rating={recipe.rating} /></p>
                     {/* Conditionally render the button */}
-                    {recipe.reviews_id.length > 0 ? (
-                        <button className="recipe-details-review-page-button" onClick={handleReviewPageButtonClick}>View Reviews</button>
-                    ) : (
-                        <button className="recipe-details-review-page-button" disabled>No Reviews</button>
-                    )}
+                    <div className="share-buttons">
+                        {recipe.reviews_id.length > 0 ? (
+                            <button className="recipe-details-review-page-button" onClick={handleReviewPageButtonClick}>View Reviews</button>
+                        ) : (
+                            <button className="recipe-details-review-page-button" disabled>No Reviews</button>
+                        )}
+                        <FacebookShareButton className="facebook-share-button" url={url} hashtag={"#Munchie"}>
+                            <FacebookIcon size={30} round={true} />
+                        </FacebookShareButton>
+                        <WhatsappShareButton className="whatsapp-share-button" url={message} >
+                            <WhatsappIcon size={30} round={true} />
+                        </WhatsappShareButton>
+                    </div>
                     <div className="separator"></div>
                     <p><strong>Time to Cook:</strong> {recipe.timeToCook}</p>
                     <p><strong>Author:</strong> {recipe.username}</p>
