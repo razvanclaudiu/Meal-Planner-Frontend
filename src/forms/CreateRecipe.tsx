@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Recipe from '../interface/RecipeInterface';
 import '../stylesheets/CreateRecipe.css';
-import { fetchRecipeData } from "../api/recipeApi";
 
 interface CreateProps {
     onClose: () => void;
@@ -14,11 +13,11 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }
     const [formData, setFormData] = useState<Recipe>({
         id: 0,
         title: '',
-        image: '', // Store image name as a string
+        image: '',
         method: '',
         timeToCook: '',
         rating: 0,
-        username: localStorage.getItem('username') || '', // This will be replaced with user ID
+        username: localStorage.getItem('username') || '',
         videoLink: '',
         ingredients_id: [],
         reviews_id: [],
@@ -32,10 +31,10 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }
     const [ingredientQuantities, setIngredientQuantities] = useState<{ [key: number]: string }>({});
     const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [categoryLimitExceeded, setCategoryLimitExceeded] = useState(false); // Add state for category limit
+    const [categoryLimitExceeded, setCategoryLimitExceeded] = useState(false);
 
-    const [ingredientSearch, setIngredientSearch] = useState(''); // Ingredient search state
-    const [categorySearch, setCategorySearch] = useState(''); // Category search state
+    const [ingredientSearch, setIngredientSearch] = useState('');
+    const [categorySearch, setCategorySearch] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -119,15 +118,15 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }
         const { options } = e.target;
         const selectedIds = Array.from(options)
             .filter(option => option.selected)
-            .map(option => Number(option.value)); // Convert value to number
+            .map(option => Number(option.value));
 
         const uniqueSelectedIds = Array.from(new Set(selectedIds));
 
         if (!isIngredient && selectedIds.length + selectedCategories.length > 6) {
-            setCategoryLimitExceeded(true); // Set limit exceeded flag
+            setCategoryLimitExceeded(true);
             return;
         } else {
-            setCategoryLimitExceeded(false); // Reset limit exceeded flag if under limit
+            setCategoryLimitExceeded(false);
         }
 
         setSelected(prevSelected => [...prevSelected, ...uniqueSelectedIds]);
@@ -195,8 +194,8 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }
                 });
 
                 if (response.ok) {
-                    const recipeData = await response.json(); // Get the newly created recipe data
-                    const newRecipeId = recipeData.id; // Get the ID of the newly created recipe
+                    const recipeData = await response.json();
+                    const newRecipeId = recipeData.id;
 
                     console.log('Recipe created successfully!', newRecipeId);
 
@@ -204,7 +203,7 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }
                     if (selectedFile) {
                         const reader = new FileReader();
                         reader.onloadend = async () => {
-                            const imageData = reader.result?.toString(); // Convert to base64 string
+                            const imageData = reader.result?.toString();
 
                             try {
                                 const imageResponse = await fetch('http://localhost:8080/api/images/recipe/upload', {
@@ -214,8 +213,8 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }
                                         'Authorization': `Bearer ${token}`
                                     },
                                     body: JSON.stringify({
-                                        id: newRecipeId, // Send the recipe ID
-                                        imageData: imageData // Send image data
+                                        id: newRecipeId,
+                                        imageData: imageData
                                     })
                                 });
 
@@ -229,7 +228,7 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }
                             }
                         };
 
-                        reader.readAsDataURL(selectedFile); // Read file as data URL
+                        reader.readAsDataURL(selectedFile);
                     }
 
                     // Submit quantities
@@ -260,7 +259,6 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }
                             throw new Error('Network response was not ok');
                         }
                         const userData = await response.json();
-                        // Save data in local storage and close modal
                         localStorage.setItem('user', JSON.stringify(userData));
                         updateUser();
                         checkNotif(userData.id);
@@ -308,7 +306,7 @@ const CreateRecipe: React.FC<CreateProps> = ({ onClose, updateUser, checkNotif }
                         name="method"
                         value={formData.method}
                         onChange={handleChange}
-                        style={{ whiteSpace: 'pre-wrap' }} // Add this style to preserve spaces
+                        style={{ whiteSpace: 'pre-wrap' }}
                     ></textarea>
 
                     <label htmlFor="ingredients_id">Ingredients: <span className="required">*</span></label>

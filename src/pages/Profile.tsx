@@ -9,13 +9,13 @@ import Review from "../interface/ReviewInterface";
 import ReviewItem from "../components/ReviewItem";
 
 interface ProfileProps {
-    user: User | null; // Define prop for user data
-    updateUser: () => void; // Function to update user data
-    setIsLoggedIn: (isLoggedIn: boolean) => void; // Function to set isLoggedIn state
+    user: User | null;
+    updateUser: () => void;
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
 
 const Profile: React.FC<ProfileProps> = ({ user, updateUser,setIsLoggedIn }) => {
-    const navigate = useNavigate(); // Get the navigate function
+    const navigate = useNavigate();
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [reviews, setReviews] = useState<Review[]>([]);
 
@@ -27,7 +27,6 @@ const Profile: React.FC<ProfileProps> = ({ user, updateUser,setIsLoggedIn }) => 
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        // Add any other headers you need for CORS
                     }
                 };
 
@@ -39,7 +38,6 @@ const Profile: React.FC<ProfileProps> = ({ user, updateUser,setIsLoggedIn }) => 
                 setRecipes(data || []);
             } catch (error) {
                 console.error('Error fetching recipes:', error);
-                // Handle error, maybe show a message to the user
             }
         };
 
@@ -49,7 +47,6 @@ const Profile: React.FC<ProfileProps> = ({ user, updateUser,setIsLoggedIn }) => 
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        // Add any other headers you need for CORS
                     }
                 };
 
@@ -61,13 +58,12 @@ const Profile: React.FC<ProfileProps> = ({ user, updateUser,setIsLoggedIn }) => 
                 setReviews(data || []);
             } catch (error) {
                 console.error('Error fetching reviews:', error);
-                // Handle error, maybe show a message to the user
             }
         }
 
         if (user) {
-            fetchRecipes(user.id); // Fetch recipes when the user data is available
-            fetchReviews(user.id); // Fetch reviews when the user data is available
+            fetchRecipes(user.id);
+            fetchReviews(user.id);
         }
     }, [user]);
 
@@ -78,24 +74,22 @@ const Profile: React.FC<ProfileProps> = ({ user, updateUser,setIsLoggedIn }) => 
         localStorage.removeItem('accessToken');
         localStorage.removeItem('userId');
         updateUser();
-        setIsLoggedIn(false); // Set isLoggedIn to false
-        navigate('/home'); // Redirect to home
+        setIsLoggedIn(false);
+        navigate('/home');
     };
 
-    // Close login modal if open
     const closeModal = () => {
         const modal = document.querySelector('.modal');
         if (modal) {
-            modal.classList.remove('show'); // Assuming there's a CSS class named 'show' to display the modal
+            modal.classList.remove('show');
         }
     };
 
     if (!user) {
-        closeModal(); // Close modal if it's open
+        closeModal();
         return <Navigate to="/home" />;
     }
 
-    // Provide default values for user properties
     const { recipes_id= [], reviews_id= [], name, image, username, title, level, experience, creationDate } = user;
 
     return (

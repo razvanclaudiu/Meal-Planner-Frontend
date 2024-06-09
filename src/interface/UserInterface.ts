@@ -4,9 +4,9 @@ interface User {
     password: string;
     level: number;
     experience: number;
-    reviews_id: number[]; // Changed to review IDs
-    recipes_id: number[]; // Changed to recipe IDs
-    awards_id: number[]; // Changed to award IDs
+    reviews_id: number[];
+    recipes_id: number[];
+    awards_id: number[];
     name: string;
     creationDate: Date;
     image: string;

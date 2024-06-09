@@ -1,4 +1,3 @@
-
 interface Notification {
     id: number;
     notificationShown: boolean;

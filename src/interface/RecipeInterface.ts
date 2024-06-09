@@ -2,13 +2,13 @@ interface Recipe {
     id: number;
     title: string;
     image: string;
-    method: string; // Changed from description
+    method: string;
     timeToCook: string;
     rating: number;
-    username: string; // Changed to user ID
+    username: string;
     videoLink: string;
     ingredients_id: number[];
-    reviews_id: number[]; // Changed to review IDs
+    reviews_id: number[];
     categories_id: number[];
 }
 

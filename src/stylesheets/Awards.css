@@ -1,9 +1,9 @@
 .awards-wrapper {
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+    margin: 0;
+    padding: 0;
     width: 100%;
-    height: 100%; /* Full viewport height */
-    position: relative; /* Ensure it acts as a relative container */
+    height: 100%;
+    position: relative;
     overflow: hidden;
 }
 
@@ -13,19 +13,19 @@
 }
 
 .cook-book {
-    width: 100%; /* Fill the container width */
-    height: 100%; /* Fill the container height */
+    width: 100%;
+    height: 100%;
 }
 
 .welcome-aboard {
-    position: absolute; /* Position the "Welcome Aboard" image absolutely */
-    top: 16%; /* Align to the vertical center */
-    left: 28%; /* Align to the horizontal center */
-    transform: translate(-50%, -50%); /* Center the image */
-    width: 6%; /* Adjust size as needed */
-    height: 12%; /* Maintain aspect ratio */
-    z-index: 2; /* Higher value to be on top */
-    transition: transform 0.3s ease; /* Smooth transition for the hover effect */
+    position: absolute;
+    top: 16%;
+    left: 28%;
+    transform: translate(-50%, -50%);
+    width: 6%;
+    height: 12%;
+    z-index: 2;
+    transition: transform 0.3s ease;
 }
 
 .first-taste {
@@ -107,8 +107,8 @@
 
 .star-chef {
     position: absolute;
-    top: 16%; /* Align to the vertical center */
-    left: 60%; /* Align to the horizontal center */
+    top: 16%;
+    left: 60%;
     transform: translate(-50%, -50%);
     width: 6%;
     height: 12%;
@@ -130,7 +130,7 @@
 .cooking-enthusiast {
     position: absolute;
     top: 35%;
-    left: 60%; /* Align to the horizontal center */
+    left: 60%;
     transform: translate(-50%, -50%);
     width: 6%;
     height: 12%;
@@ -152,7 +152,7 @@
 .gastronomy-guru {
     position: absolute;
     top: 55%;
-    left: 60%; /* Align to the horizontal center */
+    left: 60%;
     transform: translate(-50%, -50%);
     width: 6%;
     height: 12%;
@@ -174,7 +174,7 @@
 .veteran-cook {
     position: absolute;
     top: 75%;
-    left: 60%; /* Align to the horizontal center */
+    left: 60%;
     transform: translate(-50%, -50%);
     width: 6%;
     height: 12%;
@@ -193,9 +193,8 @@
     transition: transform 0.3s ease;
 }
 
-/* Add hover effect for all images except the cook-book */
 .awards-container img:not(.cook-book):hover {
-    transform: translate(-50%, -50%) scale(1.1); /* Slightly increase size on hover */
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .popup {
@@ -207,14 +206,14 @@
     border-color: black;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     opacity: 0;
-    transition: opacity 0.3s ease-in-out; /* Smooth transition for visibility */
-    pointer-events: none; /* Prevent popup from interfering with hover */
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
     z-index: 3;
-    visibility: hidden; /* Initially hidden */
+    visibility: hidden;
 }
 
 .popup.visible {
     opacity: 1;
-    pointer-events: auto; /* Allow interactions with the popup */
-    visibility: visible; /* Make it visible */
+    pointer-events: auto;
+    visibility: visible;
 }

@@ -34,14 +34,14 @@ import gastronomy_guru from "./assets/images/gastronomy_guru.png";
 import seasoned_member from "./assets/images/seasoned_member.png";
 import veteran_cook from "./assets/images/veteran_cook.png";
 import culinary_explorer from "./assets/images/culinary_explorer.png";
-// @ts-ignore
-import notificationSoundFile from './assets/sounds/award.mp3';
 import Register from "./forms/Register";
 import Category from "./interface/CategoryInterface";
 import Ingredient from "./interface/IngredientInterface";
 import {Simulate} from "react-dom/test-utils";
 import select = Simulate.select;
 import {fetchUserData} from "./api/userApi";
+// @ts-ignore
+import notificationSoundFile from './assets/sounds/award.mp3';
 
 
 function App() {
@@ -226,7 +226,7 @@ function App() {
         const { options } = e.target;
         const selectedIds = Array.from(options)
             .filter(option => option.selected)
-            .map(option => Number(option.value)); // Convert value to number
+            .map(option => Number(option.value));
 
         const uniqueSelectedIds = Array.from(new Set(selectedIds));
 

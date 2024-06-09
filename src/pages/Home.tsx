@@ -18,7 +18,7 @@ const Home: React.FC = () => {
     const trackRef = useRef<HTMLDivElement>(null);
 
     const handleMouseDown = (e: MouseEvent) => {
-        if (!trackRef.current?.contains(e.target as Node)) return; // Check if the click is within the track
+        if (!trackRef.current?.contains(e.target as Node)) return;
         setMouseDownAt(e.clientX);
     };
 
@@ -50,7 +50,6 @@ const Home: React.FC = () => {
             });
         }
 
-        // Adjust objectPosition for each image
         const images = trackRef.current.getElementsByClassName('track-image') as HTMLCollectionOf<HTMLImageElement>;
         Array.from(images).forEach(image => {
             image.animate({

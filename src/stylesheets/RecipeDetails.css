@@ -54,8 +54,8 @@
 }
 
 .recipe-container-3 span {
-    display: block; /* Each ingredient on one line */
-    margin-bottom: 5px; /* Add margin between each ingredient */
+    display: block;
+    margin-bottom: 5px;
 }
 
 .recipe-container-3 ul {
@@ -71,7 +71,7 @@
     width: 250px;
     height: 250px;
     border-radius: 5px;
-    align-self: center; /* Center the image horizontally */
+    align-self: center;
 }
 
 .recipe-details-review-page-button {
@@ -186,7 +186,7 @@
 }
 
 .recipe-info {
-    flex: 1; /* To occupy remaining space */
+    flex: 1;
     margin-top: 30px;
 }
 
@@ -212,7 +212,7 @@
 }
 
 .recipe-description {
-    clear: both; /* Ensure the description is below the floated image */
+    clear: both;
 }
 
 .facebook-share-button{

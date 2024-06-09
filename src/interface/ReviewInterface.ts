@@ -1,7 +1,7 @@
 interface Review {
     id: number;
-    user_id: number; // Changed to user ID
-    recipe_id: number; // Changed to recipe ID
+    user_id: number;
+    recipe_id: number;
     description: string;
     rating: number;
     image: string;

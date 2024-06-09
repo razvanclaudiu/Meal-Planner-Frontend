@@ -1,10 +1,8 @@
-// src/components/GoogleLoginButton.tsx
 import React from 'react';
 import { GoogleLogin, GoogleOAuthProvider, CredentialResponse } from '@react-oauth/google';
-import axios from 'axios';
 
 interface GoogleLoginProps {
-    onClose: () => void; // Specify the type for onClose prop
+    onClose: () => void;
     updateUser: () => void;
     checkNotif: (id : number) => void;
 }
@@ -13,14 +11,12 @@ const GoogleLoginButton: React.FC<GoogleLoginProps> = ( {onClose, updateUser, ch
     const handleSuccess = async (response: CredentialResponse) => {
         try {
             if (response.credential) {
-                // Send the token to your backend for validation and login
                 const token = response.credential;
 
                 const requestOptions = {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        // Add any other headers you need for CORS
                     },
                     body: JSON.stringify({ token }),
                 };
@@ -36,7 +32,6 @@ const GoogleLoginButton: React.FC<GoogleLoginProps> = ( {onClose, updateUser, ch
                 getUserData(username, accessToken);
 
                 console.log(result);
-                // Handle successful login response from your backend
             }
         } catch (error) {
             console.error('Login failed', error);
@@ -56,15 +51,14 @@ const GoogleLoginButton: React.FC<GoogleLoginProps> = ( {onClose, updateUser, ch
                 throw new Error('Network response was not ok');
             }
             const userData = await response.json();
-            // Save data in local storage and close modal
-            localStorage.setItem('userImage', userData.image); // Save profile picture URL
+            localStorage.setItem('userImage', userData.image);
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('username', username);
             localStorage.setItem("userId", userData.id);
             updateUser();
             checkNotif(userData.id);
-            onClose(); // Close the modal
+            onClose();
         } catch (error) {
             console.error('Error fetching user data:', error);
         }

@@ -65,7 +65,7 @@ const Awards: React.FC<Props> = ({ awards, user }) => {
             if (hoveredAwardRef.current === award) {
                 setVisiblePopup(award);
             }
-        }, 500); // Adjust delay as needed
+        }, 500);
     };
 
     const handleMouseLeave = () => {

@@ -11,7 +11,7 @@ interface LeaderboardProps {
 const Leaderboard: React.FC<LeaderboardProps> = ({users}) => {
     const [sortBy, setSortBy] = useState<keyof User | null>("level");
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-    const navigate = useNavigate(); // Get the navigate function
+    const navigate = useNavigate();
 
     const handleSort = (field: keyof User) => {
         if (sortBy === field) {
@@ -34,7 +34,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({users}) => {
     };
 
     const handleUserClick = (userId: number) => {
-        navigate(`/profile/${userId}`); // Navigate to the user's profile page
+        navigate(`/profile/${userId}`);
     };
 
     const sortedUsers = [...users].sort((a, b) => {

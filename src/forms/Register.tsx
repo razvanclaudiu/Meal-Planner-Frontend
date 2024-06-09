@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../stylesheets/Register.css';
-import User from '../interface/UserInterface';
-import {fetchRecipeData} from "../api/recipeApi";
 
 interface RegisterProps {
     onClose: () => void;
@@ -50,7 +48,7 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
                 const imageName = selectedFile.name;
                 setFormData(prevData => ({
                     ...prevData,
-                    image: imageName // Store image name as a string
+                    image: imageName
                 }));
                 setSelectedFile(selectedFile);
             } else {
@@ -63,7 +61,6 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
         event.preventDefault();
 
         try {
-            // Registration request
             const registerResponse = await fetch('http://localhost:8080/api/auth/register', {
                 method: 'POST',
                 headers: {
@@ -79,7 +76,6 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
 
             console.log('Registration successful:', await registerResponse.text());
 
-            // Login request
             const { username, password } = formData;
 
             const loginResponse = await fetch('http://localhost:8080/api/auth/login', {
@@ -131,7 +127,6 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
                 reader.readAsDataURL(selectedFile);
             }
 
-            // Fetch user data
             const userResponse = await fetch(`http://localhost:8080/api/users/username/${username}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -143,7 +138,6 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
             }
 
             const userData = await userResponse.json();
-            // Save data in local storage
             localStorage.setItem('userImage', userData.image);
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('accessToken', accessToken);
@@ -151,8 +145,6 @@ function Register({ onClose,updateUser, checkNotif }: RegisterProps) {
             localStorage.setItem('userId', userData.id);
             updateUser();
             checkNotif(userData.id);
-
-            // Close the modal on successful registration
             onClose();
         } catch (error) {
             let errorMessage = 'An unknown error occurred';

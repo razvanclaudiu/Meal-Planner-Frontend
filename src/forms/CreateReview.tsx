@@ -18,11 +18,11 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose,updateUse
 
     const [formData, setFormData] = useState<Review>({
         id: 0,
-        user_id: parseInt(localStorage.getItem('userId') || '0', 10), // Assuming you get the user ID from somewhere
-        recipe_id: recipeId, // Recipe ID received as a prop
+        user_id: parseInt(localStorage.getItem('userId') || '0', 10),
+        recipe_id: recipeId,
         description: '',
         rating: 0,
-        image: '' // Assuming you allow users to upload images for their reviews
+        image: ''
     });
 
     const [isFormValid, setIsFormValid] = useState(false);
@@ -68,7 +68,7 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose,updateUse
                 const imageName = selectedFile.name;
                 setFormData(prevData => ({
                     ...prevData,
-                    image: imageName // Store image name as a string
+                    image: imageName
                 }));
                 setSelectedFile(selectedFile);
             } else {
@@ -89,11 +89,9 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose,updateUse
 
         const userJSON = localStorage.getItem('user');
 
-        // Parse the JSON string into a JavaScript object
         // @ts-ignore
         const userObject = JSON.parse(userJSON);
 
-        // Access the 'id' property of the object and set it as userId in the formData state
         setFormData(prevState => ({
             ...prevState,
             user_id: userObject.id
@@ -112,7 +110,6 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose,updateUse
 
         const token = localStorage.getItem('accessToken');
 
-        // Assuming you have a function to post the review to your API
         if(token) {
             try {
                 const response = await fetch('http://localhost:8080/api/reviews', {
@@ -142,8 +139,8 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose,updateUse
                                         'Authorization': `Bearer ${token}`
                                     },
                                     body: JSON.stringify({
-                                        id: newReviewId, // Send the recipe ID
-                                        imageData: imageData // Send image data
+                                        id: newReviewId,
+                                        imageData: imageData
                                 })
                                 });
 
@@ -157,7 +154,7 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose,updateUse
                             }
                         };
 
-                        reader.readAsDataURL(selectedFile); // Read file as data URL
+                        reader.readAsDataURL(selectedFile);
                     }
                     const url = `http://localhost:8080/api/users/username/${localStorage.getItem("username")}`;
 
@@ -167,7 +164,6 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose,updateUse
                             throw new Error('Network response was not ok');
                         }
                         const userData = await response.json();
-                        // Save data in local storage and close modal
                         localStorage.setItem('user', JSON.stringify(userData));
                         updateUser();
                         checkNotif(userData.id);
@@ -215,7 +211,6 @@ const CreateReview: React.FC<CreateReviewProps> = ({ recipeId, onClose,updateUse
                         ))}
                     </div>
 
-                    {/* Assuming you allow users to upload an image for their review */}
                     <label htmlFor="image">Image: <span className="required">*</span></label>
                     <input
                         type="file"

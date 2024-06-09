@@ -5,7 +5,7 @@ import {fetchRecipeData} from "../api/recipeApi";
 import {useRecipeContext} from "../context/RecipeProvider";
 
 interface EditReviewProps {
-    review: Review; // Recipe ID passed as a prop
+    review: Review;
     updateUser: () => void;
     onClose: () => void;
 }
@@ -17,11 +17,11 @@ const EditReview: React.FC<EditReviewProps> = ({ review,updateUser, onClose }) =
 
     const [formData, setFormData] = useState<Review>({
         id: review.id,
-        user_id: review.user_id, // Assuming you get the user ID from somewhere
-        recipe_id: review.recipe_id, // Recipe ID received as a prop
+        user_id: review.user_id,
+        recipe_id: review.recipe_id,
         description: review.description,
         rating: review.rating,
-        image: review.image // Assuming you allow users to upload images for their reviews
+        image: review.image
     });
 
     const [isFormValid, setIsFormValid] = useState(false);
@@ -85,7 +85,6 @@ const EditReview: React.FC<EditReviewProps> = ({ review,updateUser, onClose }) =
 
         const token = localStorage.getItem('accessToken');
 
-        // Assuming you have a function to post the review to your API
         if(token) {
             try {
                 const response = await fetch(`http://localhost:8080/api/reviews/${newReview.id}`, {
@@ -115,8 +114,8 @@ const EditReview: React.FC<EditReviewProps> = ({ review,updateUser, onClose }) =
                                         'Authorization': `Bearer ${token}`
                                     },
                                     body: JSON.stringify({
-                                        id: newReviewId, // Send the recipe ID
-                                        imageData: imageData // Send image data
+                                        id: newReviewId,
+                                        imageData: imageData
                                     })
                                 });
 
@@ -130,7 +129,7 @@ const EditReview: React.FC<EditReviewProps> = ({ review,updateUser, onClose }) =
                             }
                         };
 
-                        reader.readAsDataURL(selectedFile); // Read file as data URL
+                        reader.readAsDataURL(selectedFile);
                     }
                     const url = `http://localhost:8080/api/users/username/${localStorage.getItem("username")}`;
 
@@ -140,7 +139,6 @@ const EditReview: React.FC<EditReviewProps> = ({ review,updateUser, onClose }) =
                             throw new Error('Network response was not ok');
                         }
                         const userData = await response.json();
-                        // Save data in local storage and close modal
                         localStorage.setItem('user', JSON.stringify(userData));
                         updateUser();
                         fetchRecipeData(setRecipes);
@@ -187,7 +185,6 @@ const EditReview: React.FC<EditReviewProps> = ({ review,updateUser, onClose }) =
                         ))}
                     </div>
 
-                    {/* Assuming you allow users to upload an image for their review */}
                     <label htmlFor="image">Image:</label>
                     <input
                         type="file"

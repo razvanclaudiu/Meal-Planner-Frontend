@@ -1,21 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../stylesheets/Login.css';
-import User from '../interface/UserInterface';
 import GoogleLoginButton from "../components/GoogleLoginButton";
 interface LoginProps {
-    onClose: () => void; // Specify the type for onClose prop
+    onClose: () => void;
     updateUser: () => void;
     checkNotif: (id : number) => void;
 }
 
 function Login({ onClose, updateUser, checkNotif }: LoginProps) {
-    const modalRef = useRef<HTMLDivElement>(null); // Ref for the modal content
+    const modalRef = useRef<HTMLDivElement>(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        // Function to handle clicks outside the modal content
         const handleClickOutside = (event: MouseEvent) => {
             if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
                 onClose(); // Close the modal if the click is outside it
@@ -39,7 +37,6 @@ function Login({ onClose, updateUser, checkNotif }: LoginProps) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Add any other headers you need for CORS
                 },
                 body: JSON.stringify({ username, password }),
             };
@@ -71,7 +68,6 @@ function Login({ onClose, updateUser, checkNotif }: LoginProps) {
                 throw new Error('Network response was not ok');
             }
             const userData = await response.json();
-            // Save data in local storage and close modal
             localStorage.setItem('userImage', userData.image);
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('accessToken', accessToken);
@@ -79,7 +75,7 @@ function Login({ onClose, updateUser, checkNotif }: LoginProps) {
             localStorage.setItem("userId", userData.id);
             updateUser();
             checkNotif(userData.id);
-            onClose(); // Close the modal
+            onClose();
         } catch (error) {
             console.error('Error fetching user data:', error);
         }

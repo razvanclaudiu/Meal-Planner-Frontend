@@ -1,16 +1,14 @@
-/* Recipe.css */
-
 .recipe-container {
-    overflow-y: auto; /* Enable vertical scrolling */
-    max-height: calc(100vh - 100px); /* Adjust the max height based on the container height and top bar height */
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
 }
 
 .recipe-list {
     display: flex;
-    flex-wrap: wrap; /* Allow components to wrap */
-    justify-content: center; /* Center the recipes horizontally */
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 30px;
-    padding: 30px 5% 0 5%; /* Adjust the padding */
+    padding: 30px 5% 0 5%;
 }
 
 .recipe-item {
@@ -28,14 +26,14 @@
 }
 
 .recipe-item img {
-    width: 275px; /* Make the image fill the container */
-    height: 275px; /* Set a fixed height */
-    border-radius: 10px 10px 10px 10px; /* Round the top corners */
+    width: 275px;
+    height: 275px;
+    border-radius: 10px 10px 10px 10px;
 }
 
 .recipe-item:hover {
-    transform: translateY(-5px); /* Move the item up slightly on hover */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .recipe-item:hover::after {
@@ -43,10 +41,10 @@
     position: absolute;
     bottom: -4px;
     right: -4px;
-    width: calc(98.5% ); /* Adjust the width */
-    height: calc(99.5% ); /* Adjust the height */
-    border-bottom: 7px solid #A91D3A; /* Yellow outline on bottom */
-    border-right: 7px solid #A91D3A; /* Yellow outline on right */
+    width: calc(98.5%);
+    height: calc(99.5%);
+    border-bottom: 7px solid #A91D3A;
+    border-right: 7px solid #A91D3A;
     border-radius: 10px;
 }
 
@@ -56,28 +54,22 @@
     font-size: 24px;
 }
 
-
-
 /* Mobile styles */
 @media (max-width: 768px) {
-    /* Adjust padding for recipe list */
     .recipe-list {
         padding: 0 5% 0 5%;
     }
 
-    /* Adjust width of recipe item for mobile */
     .recipe-item {
-        width: calc(50% - 20px); /* Set width to half the container minus gap */
+        width: calc(50% - 20px);
     }
 
-    /* Adjust margin for recipe item on mobile */
     .recipe-item:nth-child(odd) {
-        margin-right: 20px; /* Add margin only to odd components */
+        margin-right: 20px;
     }
 
-    /* Adjust size of recipe item image for mobile */
     .recipe-item img {
-        width: 100%; /* Adjust width to fit the container */
-        height: auto; /* Adjust height to maintain aspect ratio */
+        width: 100%;
+        height: auto;
     }
 }

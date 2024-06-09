@@ -40,7 +40,6 @@ const RecipeDetails: React.FC<Props> = ({ recipe,updateUser, checkNotif }) => {
     const { setRecipes } = useRecipeContext();
 
     useEffect(() => {
-        // Fetch categories and ingredients
         fetchCategories();
         fetchIngredients();
         fetchQuantities();
@@ -114,7 +113,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe,updateUser, checkNotif }) => {
 
             if (response.ok) {
                 fetchRecipeData(setRecipes);
-                navigate('/recipes'); // Redirect to the recipes list page
+                navigate('/recipes');
             } else {
                 console.error("Failed to delete the recipe");
             }
@@ -194,7 +193,7 @@ const RecipeDetails: React.FC<Props> = ({ recipe,updateUser, checkNotif }) => {
 
     const url = `https://6986-188-27-132-209.ngrok-free.app/recipe/${recipe.id}`;
     const title = "Check out this recipe from Munchie!";
-    const message = `${title}\n${url}`; // Manually concatenating title and URL with a newline character
+    const message = `${title}\n${url}`;
 
 
     return (
@@ -205,12 +204,11 @@ const RecipeDetails: React.FC<Props> = ({ recipe,updateUser, checkNotif }) => {
             {showEditReviewForm && <EditReview  review={review} updateUser={updateUser} onClose={handleModalClose}  />}
             <div className="recipe-details-container">
                 <img src={imageUrl} alt={recipe.title} className="recipe-image" onError={(e) => {
-                    e.currentTarget.src = image_not_found; // Set a placeholder image
+                    e.currentTarget.src = image_not_found;
                 }} />
                 <div className="recipe-info">
                     <h2 className="recipe-title">{recipe.title}</h2>
                     <p> <StarRating rating={recipe.rating} /></p>
-                    {/* Conditionally render the button */}
                     <div className="share-buttons">
                         {recipe.reviews_id.length > 0 ? (
                             <button className="recipe-details-review-page-button" onClick={handleReviewPageButtonClick}>View Reviews</button>
