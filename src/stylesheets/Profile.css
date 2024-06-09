@@ -81,7 +81,6 @@
     display: flex; /* Use flexbox */
     flex-direction: column; /* Items will be arranged vertically */
     justify-content: center; /* Center the recipes horizontally */
-    overflow-y: auto; /* Enable vertical scrolling */
     gap: 10px;
     padding: 20px;
     position: absolute;
@@ -102,7 +101,11 @@
 }
 
 .recipe-list-profile {
-    flex: 1; /* Let the recipe list fill the available space */
+    display: flex;
+    flex-wrap: wrap; /* Allow components to wrap */
+    justify-content: center; /* Center the recipes horizontally */
+    gap: 1px;
+    padding: 30px 5% 0 5%; /* Adjust the padding */
     overflow-y: auto; /* Add scrolling if necessary */
     padding: 0; /* Reset padding */
 }
